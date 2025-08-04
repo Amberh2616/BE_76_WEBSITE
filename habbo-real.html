@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE 76 - 真正的 Habbo 風格</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">BE 76</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="assistant.html" class="nav-link">個人助理</a>
+                    <a href="social-rooms.html" class="nav-link">AI 社交</a>
+                    <a href="habbo-real.html" class="nav-link active">Habbo 房間</a>
+                    <a href="profile.html" class="nav-link">個人檔案</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Room Navigation -->
+    <section style="padding: 20px 0; background: var(--neutral-light);">
+        <div class="container">
+            <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button class="room-btn active" data-room="fashion" onclick="switchRoom('fashion')">
+                    🎀 時尚房
+                </button>
+                <button class="room-btn" data-room="beauty" onclick="switchRoom('beauty')">
+                    💄 美妝房
+                </button>
+                <button class="room-btn" data-room="travel" onclick="switchRoom('travel')">
+                    ✈️ 旅行房
+                </button>
+                <button class="room-btn" data-room="music" onclick="switchRoom('music')">
+                    🎵 音樂房
+                </button>
+            </div>
+            <div style="text-align: center;">
+                <h2 style="margin-bottom: 10px; color: var(--primary-brand);">
+                    <span id="roomEmoji">🎀</span>
+                    <span id="roomName">時尚穿搭房</span>
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Habbo Room -->
+    <section class="habbo-room">
+        <div class="room-container">
+            
+            <!-- Room Background -->
+            <div class="room-scene" id="roomScene">
+                
+                <!-- Habbo Characters -->
+                <div class="habbo-characters">
+                    
+                    <!-- Amber - 長捲髮女孩，粉色洋裝 -->
+                    <div class="habbo-char amber-char" style="left: 15%; bottom: 20%;" onclick="showProfile('amber')">
+                        <svg width="64" height="96" viewBox="0 0 64 96" class="char-svg">
+                            <!-- 陰影 -->
+                            <ellipse cx="32" cy="90" rx="20" ry="6" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- 鞋子 -->
+                            <rect x="22" y="84" width="8" height="6" fill="#8B4513" stroke="#654321" stroke-width="1"/>
+                            <rect x="34" y="84" width="8" height="6" fill="#8B4513" stroke="#654321" stroke-width="1"/>
+                            
+                            <!-- 腿部 -->
+                            <rect x="24" y="70" width="6" height="16" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            <rect x="34" y="70" width="6" height="16" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            
+                            <!-- 洋裝 -->
+                            <path d="M18 45 L46 45 L48 70 L16 70 Z" fill="#FF69B4" stroke="#E91E63" stroke-width="2"/>
+                            <path d="M20 50 L44 50 L46 65 L18 65 Z" fill="#FFB6C1" opacity="0.7"/>
+                            
+                            <!-- 手臂 -->
+                            <rect x="12" y="48" width="6" height="18" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            <rect x="46" y="48" width="6" height="18" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            
+                            <!-- 身體 -->
+                            <rect x="22" y="38" width="20" height="16" fill="#FF69B4" stroke="#E91E63" stroke-width="2"/>
+                            
+                            <!-- 頭部 -->
+                            <circle cx="32" cy="26" r="16" fill="#FDBCB4" stroke="#2C3E50" stroke-width="2"/>
+                            
+                            <!-- 長捲髮 -->
+                            <path d="M16 18 Q32 5 48 18 Q50 30 48 40 Q45 35 40 38 Q35 32 32 35 Q29 32 24 38 Q19 35 16 40 Q14 30 16 18" fill="#8B4513" stroke="#654321" stroke-width="1"/>
+                            <circle cx="20" cy="35" r="4" fill="#8B4513"/>
+                            <circle cx="44" cy="35" r="4" fill="#8B4513"/>
+                            
+                            <!-- 眼睛 -->
+                            <circle cx="26" cy="22" r="3" fill="white"/>
+                            <circle cx="38" cy="22" r="3" fill="white"/>
+                            <circle cx="26" cy="22" r="2" fill="#4169E1"/>
+                            <circle cx="38" cy="22" r="2" fill="#4169E1"/>
+                            <circle cx="26" cy="21" r="1" fill="white"/>
+                            <circle cx="38" cy="21" r="1" fill="white"/>
+                            
+                            <!-- 嘴巴 -->
+                            <path d="M29 30 Q32 33 35 30" stroke="#E74C3C" stroke-width="2" fill="none"/>
+                            
+                            <!-- 腮紅 -->
+                            <circle cx="20" cy="28" r="3" fill="#FFB6C1" opacity="0.6"/>
+                            <circle cx="44" cy="28" r="3" fill="#FFB6C1" opacity="0.6"/>
+                            
+                            <!-- 配件 - 蝴蝶結 -->
+                            <path d="M28 15 L32 12 L36 15 L32 18 Z" fill="#FF1493"/>
+                        </svg>
+                        <div class="char-name">Amber</div>
+                        <div class="chat-bubble" id="amber-bubble"></div>
+                    </div>
+
+                    <!-- Bella - 短髮女孩，藍色上衣 -->
+                    <div class="habbo-char bella-char" style="left: 35%; bottom: 30%;" onclick="showProfile('bella')">
+                        <svg width="64" height="96" viewBox="0 0 64 96" class="char-svg">
+                            <!-- 陰影 -->
+                            <ellipse cx="32" cy="90" rx="20" ry="6" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- 鞋子 -->
+                            <rect x="22" y="84" width="8" height="6" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+                            <rect x="34" y="84" width="8" height="6" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+                            
+                            <!-- 腿部 -->
+                            <rect x="24" y="70" width="6" height="16" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            <rect x="34" y="70" width="6" height="16" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            
+                            <!-- 牛仔褲 -->
+                            <rect x="20" y="54" width="24" height="18" fill="#4169E1" stroke="#1E90FF" stroke-width="2"/>
+                            <line x1="22" y1="58" x2="42" y2="58" stroke="#87CEEB" stroke-width="1"/>
+                            <line x1="22" y1="64" x2="42" y2="64" stroke="#87CEEB" stroke-width="1"/>
+                            
+                            <!-- 手臂 -->
+                            <rect x="12" y="40" width="6" height="20" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            <rect x="46" y="40" width="6" height="20" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            
+                            <!-- T恤 -->
+                            <rect x="18" y="32" width="28" height="24" fill="#87CEEB" stroke="#4682B4" stroke-width="2"/>
+                            <rect x="20" y="36" width="24" height="4" fill="#B0E0E6"/>
+                            
+                            <!-- 頭部 -->
+                            <circle cx="32" cy="22" r="14" fill="#FDBCB4" stroke="#2C3E50" stroke-width="2"/>
+                            
+                            <!-- 短髮 -->
+                            <path d="M18 15 Q32 8 46 15 Q48 22 46 28 Q40 25 32 26 Q24 25 18 28 Q16 22 18 15" fill="#FFD700" stroke="#DAA520" stroke-width="1"/>
+                            
+                            <!-- 眼睛 -->
+                            <circle cx="26" cy="19" r="2.5" fill="white"/>
+                            <circle cx="38" cy="19" r="2.5" fill="white"/>
+                            <circle cx="26" cy="19" r="1.5" fill="#228B22"/>
+                            <circle cx="38" cy="19" r="1.5" fill="#228B22"/>
+                            <circle cx="26" cy="18" r="0.5" fill="white"/>
+                            <circle cx="38" cy="18" r="0.5" fill="white"/>
+                            
+                            <!-- 嘴巴 -->
+                            <circle cx="32" cy="26" r="2" fill="#FF69B4"/>
+                            
+                            <!-- 腮紅 -->
+                            <circle cx="21" cy="24" r="2" fill="#FFB6C1" opacity="0.5"/>
+                            <circle cx="43" cy="24" r="2" fill="#FFB6C1" opacity="0.5"/>
+                        </svg>
+                        <div class="char-name">Bella</div>
+                        <div class="chat-bubble" id="bella-bubble"></div>
+                    </div>
+
+                    <!-- Emma - 馬尾女孩，運動服 -->
+                    <div class="habbo-char emma-char" style="left: 55%; bottom: 25%;" onclick="showProfile('emma')">
+                        <svg width="64" height="96" viewBox="0 0 64 96" class="char-svg">
+                            <!-- 陰影 -->
+                            <ellipse cx="32" cy="90" rx="20" ry="6" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- 運動鞋 -->
+                            <rect x="20" y="82" width="10" height="8" fill="#FF4500" stroke="#DC143C" stroke-width="1"/>
+                            <rect x="34" y="82" width="10" height="8" fill="#FF4500" stroke="#DC143C" stroke-width="1"/>
+                            <rect x="22" y="84" width="6" height="2" fill="#FFFFFF"/>
+                            <rect x="36" y="84" width="6" height="2" fill="#FFFFFF"/>
+                            
+                            <!-- 腿部 -->
+                            <rect x="24" y="66" width="6" height="18" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            <rect x="34" y="66" width="6" height="18" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            
+                            <!-- 運動短褲 -->
+                            <rect x="20" y="50" width="24" height="18" fill="#8A2BE2" stroke="#7B68EE" stroke-width="2"/>
+                            <rect x="22" y="52" width="20" height="2" fill="#DDA0DD"/>
+                            
+                            <!-- 手臂 -->
+                            <rect x="10" y="36" width="8" height="22" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            <rect x="46" y="36" width="8" height="22" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            
+                            <!-- 運動背心 -->
+                            <rect x="16" y="28" width="32" height="26" fill="#9370DB" stroke="#8A2BE2" stroke-width="2"/>
+                            <rect x="18" y="32" width="28" height="3" fill="#DDA0DD"/>
+                            <rect x="18" y="38" width="28" height="3" fill="#DDA0DD"/>
+                            
+                            <!-- 頭部 -->
+                            <circle cx="32" cy="20" r="12" fill="#FDBCB4" stroke="#2C3E50" stroke-width="2"/>
+                            
+                            <!-- 馬尾髮型 -->
+                            <circle cx="32" cy="14" r="10" fill="#4B0082" stroke="#2F004F" stroke-width="1"/>
+                            <ellipse cx="48" cy="16" rx="8" ry="15" fill="#4B0082" stroke="#2F004F" stroke-width="1"/>
+                            
+                            <!-- 眼睛 -->
+                            <circle cx="27" cy="17" r="2" fill="white"/>
+                            <circle cx="37" cy="17" r="2" fill="white"/>
+                            <circle cx="27" cy="17" r="1" fill="#8B4513"/>
+                            <circle cx="37" cy="17" r="1" fill="#8B4513"/>
+                            
+                            <!-- 嘴巴 -->
+                            <path d="M28 24 Q32 27 36 24" stroke="#E74C3C" stroke-width="2" fill="none"/>
+                            
+                            <!-- 運動頭帶 -->
+                            <rect x="20" y="12" width="24" height="3" fill="#FF6347" stroke="#DC143C" stroke-width="1"/>
+                        </svg>
+                        <div class="char-name">Emma</div>
+                        <div class="chat-bubble" id="emma-bubble"></div>
+                    </div>
+
+                    <!-- Luna - 龐克女孩，黑色皮衣 -->
+                    <div class="habbo-char luna-char" style="left: 75%; bottom: 35%;" onclick="showProfile('luna')">
+                        <svg width="64" height="96" viewBox="0 0 64 96" class="char-svg">
+                            <!-- 陰影 -->
+                            <ellipse cx="32" cy="90" rx="20" ry="6" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- 靴子 -->
+                            <rect x="20" y="80" width="10" height="10" fill="#000000" stroke="#333333" stroke-width="1"/>
+                            <rect x="34" y="80" width="10" height="10" fill="#000000" stroke="#333333" stroke-width="1"/>
+                            <rect x="18" y="78" width="14" height="4" fill="#333333"/>
+                            <rect x="32" y="78" width="14" height="4" fill="#333333"/>
+                            
+                            <!-- 腿部 -->
+                            <rect x="24" y="60" width="6" height="22" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            <rect x="34" y="60" width="6" height="22" fill="#FDBCB4" stroke="#2C3E50" stroke-width="1"/>
+                            
+                            <!-- 黑色緊身褲 -->
+                            <rect x="22" y="46" width="20" height="18" fill="#1C1C1C" stroke="#000000" stroke-width="2"/>
+                            
+                            <!-- 手臂 -->
+                            <rect x="8" y="32" width="10" height="24" fill="#000000" stroke="#333333" stroke-width="1"/>
+                            <rect x="46" y="32" width="10" height="24" fill="#000000" stroke="#333333" stroke-width="1"/>
+                            <rect x="10" y="46" width="6" height="10" fill="#FDBCB4"/>
+                            <rect x="48" y="46" width="6" height="10" fill="#FDBCB4"/>
+                            
+                            <!-- 皮衣外套 -->
+                            <rect x="14" y="24" width="36" height="28" fill="#1C1C1C" stroke="#000000" stroke-width="2"/>
+                            <rect x="16" y="28" width="32" height="2" fill="#333333"/>
+                            <rect x="28" y="26" width="8" height="20" fill="#333333"/>
+                            <circle cx="20" cy="32" r="2" fill="#C0C0C0"/>
+                            <circle cx="44" cy="32" r="2" fill="#C0C0C0"/>
+                            
+                            <!-- 頭部 -->
+                            <circle cx="32" cy="18" r="11" fill="#FDBCB4" stroke="#2C3E50" stroke-width="2"/>
+                            
+                            <!-- 龐克髮型 -->
+                            <path d="M21 12 L25 2 L29 8 L32 3 L35 8 L39 2 L43 12 Q38 15 32 16 Q26 15 21 12" fill="#8B008B" stroke="#4B0082" stroke-width="1"/>
+                            <rect x="26" y="4" width="2" height="8" fill="#FF69B4"/>
+                            <rect x="36" y="4" width="2" height="8" fill="#00FFFF"/>
+                            
+                            <!-- 眼睛 -->
+                            <circle cx="27" cy="15" r="2" fill="white"/>
+                            <circle cx="37" cy="15" r="2" fill="white"/>
+                            <circle cx="27" cy="15" r="1" fill="#8B008B"/>
+                            <circle cx="37" cy="15" r="1" fill="#8B008B"/>
+                            
+                            <!-- 嘴巴 -->
+                            <path d="M29 22 Q32 24 35 22" stroke="#8B008B" stroke-width="2" fill="none"/>
+                            
+                            <!-- 穿環 -->
+                            <circle cx="22" cy="20" r="1.5" fill="none" stroke="#C0C0C0" stroke-width="1"/>
+                        </svg>
+                        <div class="char-name">Luna</div>
+                        <div class="chat-bubble" id="luna-bubble"></div>
+                    </div>
+
+                </div>
+
+                <!-- 家具 -->
+                <div class="furniture-items">
+                    <div class="furniture sofa-furniture" style="left: 10%; bottom: 5%;" onclick="clickFurniture('sofa')">
+                        🛋️
+                    </div>
+                    <div class="furniture table-furniture" style="left: 40%; bottom: 8%;" onclick="clickFurniture('table')">
+                        🪑
+                    </div>
+                    <div class="furniture plant-furniture" style="right: 15%; bottom: 5%;" onclick="clickFurniture('plant')">
+                        🪴
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- 聊天面板 -->
+            <div class="chat-panel">
+                <div class="chat-header">
+                    <span><i class="fas fa-comments"></i> 聊天室</span>
+                    <button onclick="toggleChat()">
+                        <i class="fas fa-chevron-up" id="chatToggle"></i>
+                    </button>
+                </div>
+                <div class="chat-body" id="chatBody">
+                    <div class="messages" id="messages">
+                        <div class="message ai-message">
+                            <strong>Amber:</strong> 歡迎來到時尚穿搭房！大家的造型都好特別呢！
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="說點什麼..." onkeypress="handleKeyPress(event)">
+                        <button onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 角色資料卡 -->
+    <div class="profile-modal" id="profileModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="profileName">Amber</h3>
+                <button onclick="closeProfile()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-avatar" id="profileAvatar">
+                    <!-- 角色圖像將在這裡 -->
+                </div>
+                <div class="profile-info">
+                    <div class="info-item">
+                        <strong>專長:</strong> <span id="profileSkill">時尚穿搭</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>個性:</strong> <span id="profilePersonality">溫柔友善</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>造型:</strong> <span id="profileLook">長捲髮 + 粉色洋裝</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>經驗值:</strong> <span id="profileExp">2560</span>
+                    </div>
+                    <div class="profile-desc" id="profileDesc">
+                        我是 Amber，喜歡穿著甜美的洋裝，擅長時尚穿搭建議！
+                    </div>
+                    <button class="btn btn-primary" onclick="startChat()">開始對話</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Habbo Room Styles */
+        .habbo-room {
+            background: linear-gradient(180deg, #87CEEB 0%, #98FB98 50%, #DDA0DD 100%);
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .room-scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                linear-gradient(180deg, #FF6B9D 0%, #4ECDC4 50%, #DDA0DD 100%);
+            transition: all 0.5s ease;
+        }
+
+        /* Room Buttons */
+        .room-btn {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #2C3E50;
+            color: #2C3E50;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .room-btn.active, .room-btn:hover {
+            background: #2C3E50;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Habbo Characters */
+        .habbo-characters {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        .habbo-char {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 15;
+            animation: charFloat 4s ease-in-out infinite;
+        }
+
+        .habbo-char:hover {
+            transform: scale(1.1);
+            z-index: 20;
+        }
+
+        @keyframes charFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .char-svg {
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        .char-name {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .chat-bubble {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            border: 2px solid #2C3E50;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            max-width: 120px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 25;
+        }
+
+        .chat-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(255,255,255,0.95);
+        }
+
+        .chat-bubble.show {
+            opacity: 1;
+            bottom: 120px;
+        }
+
+        /* Furniture */
+        .furniture-items {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
+        .furniture {
+            position: absolute;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+            animation: furnitureFloat 6s ease-in-out infinite;
+        }
+
+        .furniture:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes furnitureFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Chat Panel */
+        .chat-panel {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            width: 300px;
+            background: rgba(255,255,255,0.98);
+            border: 3px solid #2C3E50;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+            z-index: 30;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .chat-header button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .chat-body {
+            max-height: 250px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .messages {
+            padding: 12px;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 8px;
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            animation: messageIn 0.3s ease;
+        }
+
+        .message.ai-message {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1));
+            border-left: 3px solid var(--primary-brand);
+        }
+
+        .message.user-message {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-input {
+            padding: 10px 12px;
+            border-top: 2px solid #e9ecef;
+            display: flex;
+            gap: 8px;
+            background: #f8f9fa;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 20px;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary-brand);
+        }
+
+        .chat-input button {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Profile Modal */
+        .profile-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-card {
+            background: white;
+            border: 3px solid #2C3E50;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 17px 17px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .modal-header button {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-header button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            background: var(--gradient-primary);
+            border: 3px solid #2C3E50;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .info-item {
+            margin: 8px 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .info-item strong {
+            color: var(--primary-brand);
+            font-weight: 700;
+        }
+
+        .profile-desc {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-brand);
+            margin: 12px 0;
+            font-style: italic;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chat-panel {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+            
+            .modal-body {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .habbo-char {
+                transform: scale(0.8);
+            }
+            
+            .room-btn {
+                font-size: 11px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+
+    <script>
+        // 角色資料
+        const characters = {
+            amber: {
+                name: 'Amber',
+                skill: '時尚穿搭',
+                personality: '溫柔友善',
+                look: '長捲髮 + 粉色洋裝',
+                exp: 2560,
+                desc: '我是 Amber，喜歡穿著甜美的洋裝，擅長時尚穿搭建議！我的長捲髮和粉色洋裝是我的招牌造型！',
+                greetings: ['嗨！你好！', '喜歡我的洋裝嗎？', '今天想聊穿搭嗎？', '我的髮型好看嗎？']
+            },
+            bella: {
+                name: 'Bella',
+                skill: '美妝保養',
+                personality: '活潑開朗',
+                look: '短髮 + 藍色T恤',
+                exp: 1890,
+                desc: '我是 Bella，美妝達人！我喜歡簡約的短髮造型和舒適的藍色T恤，活潑開朗是我的特色！',
+                greetings: ['哈囉！', '想學化妝技巧嗎？', '今天心情超好！', '我的新髮色如何？']
+            },
+            emma: {
+                name: 'Emma',
+                skill: '旅行規劃',
+                personality: '冒險精神',
+                look: '馬尾 + 運動服',
+                exp: 3200,
+                desc: '我是 Emma，旅行專家！馬尾辮和運動服是我的標準裝備，隨時準備出發探險！',
+                greetings: ['準備好冒險了嗎？', '想去哪裡旅行？', '運動讓人充滿活力！', '世界那麼大！']
+            },
+            luna: {
+                name: 'Luna',
+                skill: '音樂品味',
+                personality: '藝術氣息',
+                look: '龐克髮 + 皮衣',
+                exp: 2100,
+                desc: '我是 Luna，音樂愛好者！龐克風的造型配上黑色皮衣，展現我獨特的藝術品味和個性！',
+                greetings: ['搖滾起來！', '聽過這首歌嗎？', '個性就是我的風格！', '音樂是靈魂！']
+            }
+        };
+
+        const rooms = {
+            fashion: { name: '時尚穿搭房', emoji: '🎀', bg: 'linear-gradient(180deg, #FF6B9D 0%, #4ECDC4 50%, #DDA0DD 100%)' },
+            beauty: { name: '美妝保養房', emoji: '💄', bg: 'linear-gradient(180deg, #DDA0DD 0%, #F0E68C 50%, #98FB98 100%)' },
+            travel: { name: '旅行探索房', emoji: '✈️', bg: 'linear-gradient(180deg, #87CEEB 0%, #98FB98 50%, #FFD700 100%)' },
+            music: { name: '音樂聊天房', emoji: '🎵', bg: 'linear-gradient(180deg, #DA70D6 0%, #20B2AA 50%, #FF6347 100%)' }
+        };
+
+        let currentRoom = 'fashion';
+        let chatOpen = true;
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCharacterInteractions();
+            startRandomActivities();
+            addMessage('Amber: 歡迎來到 BE 76 的 Habbo 世界！每個人都有獨特的造型呢！', 'ai');
+        });
+
+        // 角色互動設定
+        function setupCharacterInteractions() {
+            const chars = document.querySelectorAll('.habbo-char');
+            chars.forEach(char => {
+                const charId = char.id.replace('-char', '');
+                const bubble = char.querySelector('.chat-bubble');
+                
+                char.addEventListener('mouseenter', function() {
+                    const character = characters[charId];
+                    if (character) {
+                        const greeting = character.greetings[Math.floor(Math.random() * character.greetings.length)];
+                        bubble.textContent = greeting;
+                        bubble.classList.add('show');
+                    }
+                });
+                
+                char.addEventListener('mouseleave', function() {
+                    bubble.classList.remove('show');
+                });
+            });
+        }
+
+        // 顯示角色資料
+        function showProfile(charId) {
+            const character = characters[charId];
+            if (!character) return;
+            
+            document.getElementById('profileName').textContent = character.name;
+            document.getElementById('profileSkill').textContent = character.skill;
+            document.getElementById('profilePersonality').textContent = character.personality;
+            document.getElementById('profileLook').textContent = character.look;
+            document.getElementById('profileExp').textContent = character.exp;
+            document.getElementById('profileDesc').textContent = character.desc;
+            
+            // 複製角色圖像到資料卡
+            const originalSvg = document.querySelector(`#${charId}-char .char-svg`);
+            const profileAvatar = document.getElementById('profileAvatar');
+            profileAvatar.innerHTML = '';
+            const clonedSvg = originalSvg.cloneNode(true);
+            clonedSvg.style.width = '80px';
+            clonedSvg.style.height = '80px';
+            profileAvatar.appendChild(clonedSvg);
+            
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function closeProfile() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+        function startChat() {
+            const charName = document.getElementById('profileName').textContent;
+            const character = Object.values(characters).find(c => c.name === charName);
+            const responses = [
+                `${charName}: 嗨！很高興認識你！想聊聊${character.skill}嗎？`,
+                `${charName}: 歡迎來找我聊天！我最喜歡討論${character.skill}了！`,
+                `${charName}: 哈囉！注意到我的${character.look}了嗎？`
+            ];
+            addMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
+            closeProfile();
+        }
+
+        // 房間切換
+        function switchRoom(roomType) {
+            if (!rooms[roomType]) return;
+            
+            currentRoom = roomType;
+            const room = rooms[roomType];
+            
+            document.getElementById('roomEmoji').textContent = room.emoji;
+            document.getElementById('roomName').textContent = room.name;
+            
+            const roomScene = document.getElementById('roomScene');
+            roomScene.style.background = `radial-gradient(circle at 30% 40%, rgba(255,255,255,0.3) 0%, transparent 50%), ${room.bg}`;
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.room-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-room="${roomType}"]`).classList.add('active');
+            
+            addMessage(`歡迎來到${room.name}！`, 'ai');
+        }
+
+        // 家具互動
+        function clickFurniture(type) {
+            const messages = {
+                sofa: 'Amber: 這沙發坐起來很舒服呢！一起坐下聊天吧！',
+                table: 'Bella: 桌上有好多時尚雜誌，一起來看看吧！',
+                plant: 'Emma: 這植物讓房間充滿生機！就像大自然一樣美好！'
+            };
+            addMessage(messages[type] || 'Luna: 這家具很有藝術感呢！', 'ai');
+        }
+
+        // 聊天功能
+        function toggleChat() {
+            const chatBody = document.getElementById('chatBody');
+            const chatToggle = document.getElementById('chatToggle');
+            
+            if (chatOpen) {
+                chatBody.style.maxHeight = '0';
+                chatToggle.className = 'fas fa-chevron-down';
+            } else {
+                chatBody.style.maxHeight = '250px';
+                chatToggle.className = 'fas fa-chevron-up';
+            }
+            chatOpen = !chatOpen;
+        }
+
+        function addMessage(text, type = 'user') {
+            const messages = document.getElementById('messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${type}-message`;
+            
+            if (type === 'ai') {
+                msgDiv.innerHTML = `<strong>${text.split(':')[0]}:</strong> ${text.split(':').slice(1).join(':')}`;
+            } else {
+                msgDiv.innerHTML = `<strong>You:</strong> ${text}`;
+            }
+            
+            messages.appendChild(msgDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                setTimeout(() => {
+                    const responses = [
+                        'Amber: 這想法很棒！我覺得可以搭配粉色系...',
+                        'Bella: 哇！我也這麼想！來試試這個技巧...',
+                        'Emma: 聽起來很有趣！讓我想到上次的冒險...',
+                        'Luna: 很有個性呢！就像搖滾樂一樣酷！'
+                    ];
+                    addMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
+                }, 1500);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // 隨機活動
+        function startRandomActivities() {
+            // 隨機對話氣泡
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    const charIds = Object.keys(characters);
+                    const randomCharId = charIds[Math.floor(Math.random() * charIds.length)];
+                    const character = characters[randomCharId];
+                    const bubble = document.querySelector(`#${randomCharId}-char .chat-bubble`);
+                    
+                    if (bubble && character) {
+                        const greeting = character.greetings[Math.floor(Math.random() * character.greetings.length)];
+                        bubble.textContent = greeting;
+                        bubble.classList.add('show');
+                        
+                        setTimeout(() => {
+                            bubble.classList.remove('show');
+                        }, 3000);
+                    }
+                }
+            }, 8000);
+
+            // 隨機聊天訊息
+            setInterval(() => {
+                if (Math.random() > 0.9) {
+                    const autoMessages = [
+                        'Amber: 剛剛看到超美的洋裝設計！',
+                        'Bella: 今天試了新的眼妝技巧！',
+                        'Emma: 計劃下個月去登山呢！',
+                        'Luna: 這首新歌太棒了！'
+                    ];
+                    addMessage(autoMessages[Math.floor(Math.random() * autoMessages.length)], 'ai');
+                }
+            }, 25000);
+        }
+
+        // 點擊外部關閉視窗
+        document.getElementById('profileModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProfile();
+            }
+        });
+    </script>
+</body>
+</html>

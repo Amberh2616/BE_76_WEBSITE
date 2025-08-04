@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE 76 - Habbo 2D 房間</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">BE 76</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="assistant.html" class="nav-link">個人助理</a>
+                    <a href="social-rooms.html" class="nav-link">AI 社交</a>
+                    <a href="habbo-2d.html" class="nav-link active">Habbo 房間</a>
+                    <a href="profile.html" class="nav-link">個人檔案</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="switchRoom('beauty')">
+                        <i class="fas fa-random"></i> 切換房間
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Room Navigation -->
+    <section style="padding: 20px 0; background: var(--neutral-light);">
+        <div class="container">
+            <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 20px;">
+                <button class="habbo-room-tab active" data-room="fashion" onclick="switchRoom('fashion')">
+                    🎀 時尚穿搭房
+                </button>
+                <button class="habbo-room-tab" data-room="beauty" onclick="switchRoom('beauty')">
+                    💄 美妝保養房
+                </button>
+                <button class="habbo-room-tab" data-room="travel" onclick="switchRoom('travel')">
+                    ✈️ 旅行探索房
+                </button>
+                <button class="habbo-room-tab" data-room="music" onclick="switchRoom('music')">
+                    🎵 音樂聊天房
+                </button>
+            </div>
+            <div style="text-align: center;">
+                <h2 style="margin-bottom: 10px;">
+                    <span id="currentRoomEmoji">🎀</span>
+                    <span id="currentRoomName">時尚穿搭房</span>
+                </h2>
+                <p style="color: var(--neutral-dark);">
+                    👥 <span id="roomUsers">12</span> 人在線 | 
+                    💬 <span id="chatCount">24</span> 條對話
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Habbo 2D Room -->
+    <section class="habbo-room-section">
+        <div class="habbo-room-container">
+            
+            <!-- Room Background -->
+            <div class="room-bg" id="roomBg">
+                <!-- Floor -->
+                <div class="room-floor"></div>
+                
+                <!-- Back Wall -->
+                <div class="room-wall-back">
+                    <div class="wall-decoration">
+                        <div class="wall-item" style="left: 15%; top: 30%;">🖼️</div>
+                        <div class="wall-item" style="right: 20%; top: 25%;">⭐</div>
+                        <div class="wall-item" style="left: 50%; top: 20%;">💝</div>
+                    </div>
+                </div>
+                
+                <!-- Side Walls -->
+                <div class="room-wall-left"></div>
+                <div class="room-wall-right"></div>
+                
+                <!-- Furniture -->
+                <div class="furniture-layer">
+                    <div class="habbo-furniture sofa" style="left: 150px; bottom: 120px;" onclick="clickFurniture('sofa')">
+                        <div class="furniture-item sofa-item"></div>
+                        <div class="furniture-shadow"></div>
+                    </div>
+                    
+                    <div class="habbo-furniture table" style="left: 300px; bottom: 100px;" onclick="clickFurniture('table')">
+                        <div class="furniture-item table-item"></div>
+                        <div class="furniture-shadow"></div>
+                    </div>
+                    
+                    <div class="habbo-furniture plant" style="right: 100px; bottom: 80px;" onclick="clickFurniture('plant')">
+                        <div class="furniture-item plant-item"></div>
+                        <div class="furniture-shadow"></div>
+                    </div>
+                    
+                    <div class="habbo-furniture chair" style="left: 250px; bottom: 150px;" onclick="clickFurniture('chair')">
+                        <div class="furniture-item chair-item"></div>
+                        <div class="furniture-shadow"></div>
+                    </div>
+                </div>
+                
+                <!-- Characters Layer -->
+                <div class="characters-layer">
+                    
+                    <!-- Amber -->
+                    <div class="habbo-avatar" id="amber" style="left: 180px; bottom: 80px;" onclick="showCharacterInfo('amber')">
+                        <div class="avatar-sprite amber-avatar">
+                            <!-- Complete Habbo-style character -->
+                            <div class="avatar-body">
+                                <!-- Hair -->
+                                <div class="avatar-hair amber-hair"></div>
+                                <!-- Head -->
+                                <div class="avatar-head">
+                                    <div class="avatar-eyes">
+                                        <div class="eye-dot left"></div>
+                                        <div class="eye-dot right"></div>
+                                    </div>
+                                    <div class="avatar-mouth"></div>
+                                </div>
+                                <!-- Shirt -->
+                                <div class="avatar-shirt amber-shirt"></div>
+                                <!-- Pants -->
+                                <div class="avatar-pants amber-pants"></div>
+                                <!-- Shoes -->
+                                <div class="avatar-shoes amber-shoes"></div>
+                            </div>
+                        </div>
+                        <div class="avatar-name">Amber</div>
+                        <div class="avatar-shadow"></div>
+                        <div class="speech-bubble" id="amber-bubble"></div>
+                    </div>
+
+                    <!-- Bella -->
+                    <div class="habbo-avatar" id="bella" style="left: 320px; bottom: 120px;" onclick="showCharacterInfo('bella')">
+                        <div class="avatar-sprite bella-avatar">
+                            <div class="avatar-body">
+                                <div class="avatar-hair bella-hair"></div>
+                                <div class="avatar-head">
+                                    <div class="avatar-eyes">
+                                        <div class="eye-dot left"></div>
+                                        <div class="eye-dot right"></div>
+                                    </div>
+                                    <div class="avatar-mouth"></div>
+                                </div>
+                                <div class="avatar-shirt bella-shirt"></div>
+                                <div class="avatar-pants bella-pants"></div>
+                                <div class="avatar-shoes bella-shoes"></div>
+                            </div>
+                        </div>
+                        <div class="avatar-name">Bella</div>
+                        <div class="avatar-shadow"></div>
+                        <div class="speech-bubble" id="bella-bubble"></div>
+                    </div>
+
+                    <!-- Emma -->
+                    <div class="habbo-avatar" id="emma" style="right: 150px; bottom: 90px;" onclick="showCharacterInfo('emma')">
+                        <div class="avatar-sprite emma-avatar">
+                            <div class="avatar-body">
+                                <div class="avatar-hair emma-hair"></div>
+                                <div class="avatar-head">
+                                    <div class="avatar-eyes">
+                                        <div class="eye-dot left"></div>
+                                        <div class="eye-dot right"></div>
+                                    </div>
+                                    <div class="avatar-mouth"></div>
+                                </div>
+                                <div class="avatar-shirt emma-shirt"></div>
+                                <div class="avatar-pants emma-pants"></div>
+                                <div class="avatar-shoes emma-shoes"></div>
+                            </div>
+                        </div>
+                        <div class="avatar-name">Emma</div>
+                        <div class="avatar-shadow"></div>
+                        <div class="speech-bubble" id="emma-bubble"></div>
+                    </div>
+
+                    <!-- Luna -->
+                    <div class="habbo-avatar" id="luna" style="right: 220px; bottom: 140px;" onclick="showCharacterInfo('luna')">
+                        <div class="avatar-sprite luna-avatar">
+                            <div class="avatar-body">
+                                <div class="avatar-hair luna-hair"></div>
+                                <div class="avatar-head">
+                                    <div class="avatar-eyes">
+                                        <div class="eye-dot left"></div>
+                                        <div class="eye-dot right"></div>
+                                    </div>
+                                    <div class="avatar-mouth"></div>
+                                </div>
+                                <div class="avatar-shirt luna-shirt"></div>
+                                <div class="avatar-pants luna-pants"></div>
+                                <div class="avatar-shoes luna-shoes"></div>
+                            </div>
+                        </div>
+                        <div class="avatar-name">Luna</div>
+                        <div class="avatar-shadow"></div>
+                        <div class="speech-bubble" id="luna-bubble"></div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Chat Interface -->
+            <div class="habbo-chat-panel">
+                <div class="chat-header">
+                    <span><i class="fas fa-comments"></i> 房間聊天</span>
+                    <button onclick="toggleChat()">
+                        <i class="fas fa-chevron-up" id="chat-toggle"></i>
+                    </button>
+                </div>
+                <div class="chat-content" id="chatContent">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-msg ai-msg">
+                            <span class="msg-name">Amber</span>
+                            <span class="msg-text">歡迎來到時尚穿搭房！大家的穿搭都好棒呢！</span>
+                            <span class="msg-time">14:23</span>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="說點什麼..." onkeypress="handleEnter(event)">
+                        <button onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Modal -->
+    <div class="character-modal" id="characterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalCharacterName">Amber</h3>
+                <button onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="character-display" id="modalCharacterDisplay">
+                    <!-- Character sprite will be cloned here -->
+                </div>
+                <div class="character-info">
+                    <div class="info-row">
+                        <strong>專長:</strong> <span id="modalSkill">時尚穿搭</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>個性:</strong> <span id="modalPersonality">溫柔友善</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>經驗值:</strong> <span id="modalExp">2560</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>服裝風格:</strong> <span id="modalStyle">甜美粉色系</span>
+                    </div>
+                    <div class="character-description" id="modalDescription">
+                        我是 Amber，你的專屬時尚顧問！今天穿了最喜歡的粉色系穿搭，希望大家喜歡！
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-primary" onclick="startPrivateChat()">開始對話</button>
+                        <button class="btn btn-secondary" onclick="closeModal()">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Habbo 2D Room Styles */
+        .habbo-room-section {
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            padding: 0;
+            min-height: 80vh;
+            overflow: hidden;
+        }
+
+        .habbo-room-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        /* Room Background */
+        .room-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #87ceeb 0%, #98fb98 50%, #dda0dd 100%);
+            transition: all 0.5s ease;
+        }
+
+        .room-floor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(255,255,255,0.1) 0px,
+                    rgba(255,255,255,0.1) 20px,
+                    transparent 20px,
+                    transparent 40px
+                ),
+                linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+            background-color: #ff6b9d;
+            border-top: 4px solid #e91e63;
+        }
+
+        .room-wall-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(180deg, #4ecdc4 0%, #44a08d 100%);
+            border-bottom: 4px solid #2c3e50;
+        }
+
+        .room-wall-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 60%;
+            background: linear-gradient(90deg, #2c3e50 0%, #34495e 100%);
+            border-right: 2px solid #1a252f;
+        }
+
+        .room-wall-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 60%;
+            background: linear-gradient(270deg, #2c3e50 0%, #34495e 100%);
+            border-left: 2px solid #1a252f;
+        }
+
+        .wall-decoration {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .wall-item {
+            position: absolute;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: wallItemFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes wallItemFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Furniture */
+        .furniture-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
+        .habbo-furniture {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 6;
+        }
+
+        .habbo-furniture:hover {
+            transform: scale(1.1);
+        }
+
+        .furniture-item {
+            position: relative;
+            border: 2px solid #2c3e50;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .sofa-item {
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+        }
+
+        .sofa-item::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 4px;
+            right: 4px;
+            height: 16px;
+            background: #d2691e;
+            border: 2px solid #8b4513;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .table-item {
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(135deg, #deb887 0%, #d2b48c 100%);
+        }
+
+        .table-item::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -2px;
+            right: -2px;
+            height: 6px;
+            background: #f5deb3;
+            border: 2px solid #d2b48c;
+            border-radius: 4px;
+        }
+
+        .plant-item {
+            width: 30px;
+            height: 60px;
+            background: linear-gradient(180deg, #228b22 0%, #8b4513 80%);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .plant-item::before {
+            content: '🌿';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+        }
+
+        .chair-item {
+            width: 35px;
+            height: 40px;
+            background: linear-gradient(135deg, #cd853f 0%, #daa520 100%);
+        }
+
+        .chair-item::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 2px;
+            right: 2px;
+            height: 20px;
+            background: #daa520;
+            border: 2px solid #b8860b;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .furniture-shadow {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+
+        /* Characters Layer */
+        .characters-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        /* Habbo Avatars - Complete 2D Sprites */
+        .habbo-avatar {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 15;
+            animation: avatarIdle 3s ease-in-out infinite;
+        }
+
+        .habbo-avatar:hover {
+            transform: scale(1.2);
+            z-index: 20;
+        }
+
+        @keyframes avatarIdle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .avatar-sprite {
+            position: relative;
+            width: 32px;
+            height: 48px;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        .avatar-body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Hair */
+        .avatar-hair {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 12px;
+            border-radius: 12px 12px 0 0;
+            border: 2px solid #2c3e50;
+            z-index: 3;
+        }
+
+        .amber-hair { background: #8b4513; }
+        .bella-hair { background: #ffd700; }
+        .emma-hair { background: #4169e1; }
+        .luna-hair { background: #800080; }
+
+        /* Head */
+        .avatar-head {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 18px;
+            background: #fdbcb4;
+            border: 2px solid #2c3e50;
+            border-radius: 10px;
+            z-index: 2;
+        }
+
+        .avatar-eyes {
+            position: absolute;
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .eye-dot {
+            width: 3px;
+            height: 3px;
+            background: #2c3e50;
+            border-radius: 50%;
+        }
+
+        .avatar-mouth {
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 2px;
+            background: #e74c3c;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* Shirt */
+        .avatar-shirt {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 14px;
+            border: 2px solid #2c3e50;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .amber-shirt { background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%); }
+        .bella-shirt { background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); }
+        .emma-shirt { background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%); }
+        .luna-shirt { background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%); }
+
+        /* Pants */
+        .avatar-pants {
+            position: absolute;
+            top: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 8px;
+            border: 2px solid #2c3e50;
+            border-radius: 0 0 2px 2px;
+        }
+
+        .amber-pants { background: #2d3436; }
+        .bella-pants { background: #636e72; }
+        .emma-pants { background: #2d3436; }
+        .luna-pants { background: #636e72; }
+
+        /* Shoes */
+        .avatar-shoes {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 4px;
+            background: #2d3436;
+            border: 1px solid #636e72;
+            border-radius: 2px;
+        }
+
+        .avatar-name {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            border: 1px solid #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .avatar-shadow {
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 6px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50%;
+            filter: blur(3px);
+        }
+
+        .speech-bubble {
+            position: absolute;
+            bottom: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            border: 2px solid #2c3e50;
+            padding: 6px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            max-width: 100px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 25;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(255,255,255,0.95);
+        }
+
+        .speech-bubble.show {
+            opacity: 1;
+            bottom: 75px;
+        }
+
+        /* Room Tabs */
+        .habbo-room-tab {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #2c3e50;
+            color: #2c3e50;
+            padding: 8px 16px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .habbo-room-tab.active, .habbo-room-tab:hover {
+            background: #2c3e50;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Chat Panel */
+        .habbo-chat-panel {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            width: 300px;
+            background: rgba(255,255,255,0.98);
+            border: 3px solid #2c3e50;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.4);
+            z-index: 30;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .chat-header button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .chat-content {
+            max-height: 250px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            padding: 12px;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+
+        .chat-msg {
+            margin-bottom: 8px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            line-height: 1.3;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            animation: msgSlideIn 0.3s ease;
+        }
+
+        .chat-msg.ai-msg {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1));
+            border-left: 3px solid var(--primary-brand);
+        }
+
+        .chat-msg.user-msg {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .msg-name {
+            font-weight: 700;
+            color: var(--primary-brand);
+        }
+
+        .msg-text {
+            flex: 1;
+        }
+
+        .msg-time {
+            font-size: 9px;
+            color: #6c757d;
+            align-self: flex-end;
+        }
+
+        @keyframes msgSlideIn {
+            from { opacity: 0; transform: translateX(-15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .chat-input-area {
+            padding: 10px 12px;
+            border-top: 2px solid #e9ecef;
+            display: flex;
+            gap: 6px;
+            background: #f8f9fa;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            outline: none;
+            font-size: 11px;
+        }
+
+        .chat-input-area input:focus {
+            border-color: var(--primary-brand);
+        }
+
+        .chat-input-area button {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input-area button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Character Modal */
+        .character-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border: 3px solid #2c3e50;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            animation: modalZoom 0.3s ease;
+        }
+
+        @keyframes modalZoom {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 17px 17px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .modal-header button {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-header button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .character-display {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border: 3px solid #2c3e50;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .character-info {
+            flex: 1;
+        }
+
+        .info-row {
+            margin: 8px 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .info-row strong {
+            color: var(--primary-brand);
+            font-weight: 700;
+        }
+
+        .character-description {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-brand);
+            margin: 12px 0;
+            font-style: italic;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .habbo-chat-panel {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+            
+            .modal-body {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .habbo-room-container {
+                height: 60vh;
+            }
+            
+            .habbo-avatar {
+                transform: scale(0.9);
+            }
+        }
+    </style>
+
+    <script>
+        // Character data
+        const characterData = {
+            amber: { 
+                name: 'Amber', 
+                skill: '時尚穿搭', 
+                personality: '溫柔友善', 
+                exp: 2560, 
+                style: '甜美粉色系',
+                description: '我是 Amber，你的專屬時尚顧問！今天穿了最喜歡的粉色系穿搭，希望大家喜歡！'
+            },
+            bella: { 
+                name: 'Bella', 
+                skill: '美妝保養', 
+                personality: '活潑開朗', 
+                exp: 1890, 
+                style: '清新藍色系',
+                description: '嗨！我是 Bella，美妝達人！這套藍色系穿搭清新自然，很適合春天！'
+            },
+            emma: { 
+                name: 'Emma', 
+                skill: '旅行規劃', 
+                personality: '冒險精神', 
+                exp: 3200, 
+                style: '冒險紫色系',
+                description: '我是 Emma，旅行專家！這身紫色運動裝適合各種戶外探險活動！'
+            },
+            luna: { 
+                name: 'Luna', 
+                skill: '音樂品味', 
+                personality: '藝術氣息', 
+                exp: 2100, 
+                style: '搖滾粉色系',
+                description: '我是 Luna，音樂愛好者！今天的粉色搖滾風穿搭很有個性吧！'
+            }
+        };
+
+        const roomData = {
+            fashion: { 
+                name: '時尚穿搭房', 
+                emoji: '🎀', 
+                users: 12, 
+                bgColor: 'linear-gradient(180deg, #ff6b9d 0%, #4ecdc4 50%, #dda0dd 100%)',
+                floorColor: '#ff6b9d'
+            },
+            beauty: { 
+                name: '美妝保養房', 
+                emoji: '💄', 
+                users: 8, 
+                bgColor: 'linear-gradient(180deg, #dda0dd 0%, #f0e68c 50%, #98fb98 100%)',
+                floorColor: '#dda0dd'
+            },
+            travel: { 
+                name: '旅行探索房', 
+                emoji: '✈️', 
+                users: 15, 
+                bgColor: 'linear-gradient(180deg, #87ceeb 0%, #98fb98 50%, #ffd700 100%)',
+                floorColor: '#87ceeb'
+            },
+            music: { 
+                name: '音樂聊天房', 
+                emoji: '🎵', 
+                users: 6, 
+                bgColor: 'linear-gradient(180deg, #da70d6 0%, #20b2aa 50%, #ff6347 100%)',
+                floorColor: '#da70d6'
+            }
+        };
+
+        let currentRoom = 'fashion';
+        let chatOpen = true;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupAvatarInteractions();
+            startRandomActivities();
+            showWelcomeMessage();
+        });
+
+        // Avatar interactions
+        function setupAvatarInteractions() {
+            const avatars = document.querySelectorAll('.habbo-avatar');
+            avatars.forEach(avatar => {
+                const avatarId = avatar.id;
+                
+                avatar.addEventListener('mouseenter', function() {
+                    const bubble = this.querySelector('.speech-bubble');
+                    const greetings = [
+                        '嗨！你好！',
+                        '歡迎來聊天！',
+                        '今天過得如何？',
+                        '喜歡我的穿搭嗎？',
+                        '想要一起聊天嗎？'
+                    ];
+                    bubble.textContent = greetings[Math.floor(Math.random() * greetings.length)];
+                    bubble.classList.add('show');
+                });
+                
+                avatar.addEventListener('mouseleave', function() {
+                    const bubble = this.querySelector('.speech-bubble');
+                    bubble.classList.remove('show');
+                });
+            });
+        }
+
+        function showCharacterInfo(characterId) {
+            const char = characterData[characterId];
+            if (!char) return;
+            
+            document.getElementById('modalCharacterName').textContent = char.name;
+            document.getElementById('modalSkill').textContent = char.skill;
+            document.getElementById('modalPersonality').textContent = char.personality;
+            document.getElementById('modalExp').textContent = char.exp;
+            document.getElementById('modalStyle').textContent = char.style;
+            document.getElementById('modalDescription').textContent = char.description;
+            
+            // Clone character sprite to modal
+            const originalSprite = document.querySelector(`#${characterId} .avatar-sprite`);
+            const modalDisplay = document.getElementById('modalCharacterDisplay');
+            modalDisplay.innerHTML = '';
+            const clonedSprite = originalSprite.cloneNode(true);
+            clonedSprite.style.transform = 'scale(2)';
+            modalDisplay.appendChild(clonedSprite);
+            
+            document.getElementById('characterModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('characterModal').style.display = 'none';
+        }
+
+        function startPrivateChat() {
+            const charName = document.getElementById('modalCharacterName').textContent;
+            const responses = [
+                `${charName}: 嗨！很高興和你私下聊天！有什麼想討論的嗎？`,
+                `${charName}: 歡迎來找我聊天！需要任何建議嗎？`,
+                `${charName}: 哈囉！今天想聊什麼主題呢？`
+            ];
+            addChatMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
+            closeModal();
+        }
+
+        // Room switching
+        function switchRoom(roomType) {
+            if (!roomData[roomType]) return;
+            
+            currentRoom = roomType;
+            const room = roomData[roomType];
+            
+            // Update UI
+            document.getElementById('currentRoomEmoji').textContent = room.emoji;
+            document.getElementById('currentRoomName').textContent = room.name;
+            document.getElementById('roomUsers').textContent = room.users;
+            document.getElementById('chatCount').textContent = Math.floor(Math.random() * 50) + 10;
+            
+            // Update room colors
+            const roomBg = document.getElementById('roomBg');
+            roomBg.style.background = room.bgColor;
+            
+            const floor = document.querySelector('.room-floor');
+            floor.style.backgroundColor = room.floorColor;
+            
+            // Update active tab
+            document.querySelectorAll('.habbo-room-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-room="${roomType}"]`).classList.add('active');
+            
+            // Add message
+            addChatMessage(`歡迎來到${room.name}！房間氛圍煥然一新！`, 'ai');
+        }
+
+        // Furniture interactions
+        function clickFurniture(furnitureType) {
+            const messages = {
+                sofa: 'Amber: 這張沙發坐起來超舒服的！想要一起坐下聊天嗎？',
+                table: 'Bella: 桌上有最新的時尚雜誌，一起來看看流行趨勢吧！',
+                plant: 'Emma: 這盆植物真美！讓我想起熱帶雨林的綠意。',
+                chair: 'Luna: 這把椅子的設計很有藝術感呢！'
+            };
+            addChatMessage(messages[furnitureType] || 'Amber: 這個家具很特別呢！', 'ai');
+        }
+
+        // Chat functions
+        function toggleChat() {
+            const content = document.getElementById('chatContent');
+            const icon = document.getElementById('chat-toggle');
+            
+            if (chatOpen) {
+                content.style.maxHeight = '0';
+                icon.className = 'fas fa-chevron-down';
+            } else {
+                content.style.maxHeight = '250px';
+                icon.className = 'fas fa-chevron-up';
+            }
+            chatOpen = !chatOpen;
+        }
+
+        function addChatMessage(message, type = 'user') {
+            const container = document.getElementById('chatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-msg ${type}-msg`;
+            
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ':' + 
+                        now.getMinutes().toString().padStart(2, '0');
+            
+            if (type === 'ai') {
+                const parts = message.split(':');
+                const name = parts[0];
+                const text = parts.slice(1).join(':').trim();
+                msgDiv.innerHTML = `
+                    <span class="msg-name">${name}</span>
+                    <span class="msg-text">${text}</span>
+                    <span class="msg-time">${time}</span>
+                `;
+            } else {
+                msgDiv.innerHTML = `
+                    <span class="msg-name">You</span>
+                    <span class="msg-text">${message}</span>
+                    <span class="msg-time">${time}</span>
+                `;
+            }
+            
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addChatMessage(message, 'user');
+                input.value = '';
+                
+                setTimeout(() => {
+                    const responses = [
+                        'Amber: 這個想法很棒！我覺得可以試試不同的搭配方式...',
+                        'Bella: 哇！我也這麼想！讓我推薦一些實用的技巧給你！',
+                        'Emma: 聽起來很有趣！這讓我想到上次旅行的美好回憶...',
+                        'Luna: 很有創意呢！這就像音樂一樣需要完美的節拍！'
+                    ];
+                    addChatMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
+                }, 1500);
+            }
+        }
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Random activities
+        function startRandomActivities() {
+            // Random avatar speech
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const avatars = document.querySelectorAll('.habbo-avatar');
+                    const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+                    const bubble = randomAvatar.querySelector('.speech-bubble');
+                    
+                    const randomTexts = [
+                        '今天天氣真好！',
+                        '你覺得我的穿搭如何？',
+                        '想一起聊天嗎？',
+                        '這裡好熱鬧呢！',
+                        '大家都好有型！'
+                    ];
+                    
+                    bubble.textContent = randomTexts[Math.floor(Math.random() * randomTexts.length)];
+                    bubble.classList.add('show');
+                    
+                    setTimeout(() => {
+                        bubble.classList.remove('show');
+                    }, 3000);
+                }
+            }, 8000);
+
+            // Random chat messages
+            setInterval(() => {
+                if (Math.random() > 0.85) {
+                    const autoMessages = [
+                        'Amber: 剛剛看到一個很棒的穿搭靈感！',
+                        'Bella: 今天試了新的化妝技巧，效果不錯！',
+                        'Emma: 正在計劃下次的旅行目的地呢！',
+                        'Luna: 這首新歌的旋律太美了！'
+                    ];
+                    addChatMessage(autoMessages[Math.floor(Math.random() * autoMessages.length)], 'ai');
+                }
+            }, 20000);
+        }
+
+        function showWelcomeMessage() {
+            setTimeout(() => {
+                addChatMessage('Amber: 歡迎來到 BE 76 的 Habbo 2D 房間！我們都在這裡等你一起聊天呢！', 'ai');
+            }, 2000);
+        }
+
+        // Click outside modal to close
+        document.getElementById('characterModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

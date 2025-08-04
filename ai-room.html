@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE 76 - AI 社交房間</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">BE 76</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="assistant.html" class="nav-link">個人助理</a>
+                    <a href="social-rooms.html" class="nav-link">AI 社交</a>
+                    <a href="ai-room.html" class="nav-link active">AI 房間</a>
+                    <a href="profile.html" class="nav-link">個人檔案</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Room Navigation -->
+    <section style="padding: 20px 0; background: var(--neutral-light);">
+        <div class="container">
+            <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button class="room-btn active" data-room="fashion" onclick="switchRoom('fashion')">
+                    🎀 時尚房
+                </button>
+                <button class="room-btn" data-room="beauty" onclick="switchRoom('beauty')">
+                    💄 美妝房
+                </button>
+                <button class="room-btn" data-room="travel" onclick="switchRoom('travel')">
+                    ✈️ 旅行房
+                </button>
+                <button class="room-btn" data-room="music" onclick="switchRoom('music')">
+                    🎵 音樂房
+                </button>
+            </div>
+            <div style="text-align: center;">
+                <h2 style="margin-bottom: 10px; color: var(--primary-brand);">
+                    <span id="roomEmoji">🎀</span>
+                    <span id="roomName">時尚穿搭房</span>
+                </h2>
+                <p style="color: var(--neutral-dark);">點擊空白處移動你的 AI 助理</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Room -->
+    <section class="ai-room">
+        <div class="room-container" id="roomContainer" onclick="moveToPosition(event)">
+            
+            <!-- Room Background -->
+            <div class="room-scene" id="roomScene">
+                
+                <!-- Room Grid (for movement reference) -->
+                <div class="room-grid"></div>
+                
+                <!-- AI Characters -->
+                <div class="ai-characters">
+                    
+                    <!-- Mia - 長捲髮女孩，粉色洋裝 -->
+                    <div class="ai-char" id="mia" style="left: 15%; bottom: 20%;" data-char="mia" onclick="showProfile(event, 'mia')">
+                        <svg width="48" height="72" viewBox="0 0 48 72" class="char-svg">
+                            <!-- 陰影 -->
+                            <ellipse cx="24" cy="67" rx="15" ry="4" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- 鞋子 -->
+                            <rect x="16" y="63" width="6" height="4" fill="#8B4513" stroke="#654321"/>
+                            <rect x="26" y="63" width="6" height="4" fill="#8B4513" stroke="#654321"/>
+                            
+                            <!-- 腿部 -->
+                            <rect x="18" y="52" width="4" height="12" fill="#FDBCB4" stroke="#2C3E50"/>
+                            <rect x="26" y="52" width="4" height="12" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 洋裝 -->
+                            <path d="M14 34 L34 34 L36 52 L12 52 Z" fill="#FF69B4" stroke="#E91E63" stroke-width="1"/>
+                            <path d="M16 38 L32 38 L34 48 L14 48 Z" fill="#FFB6C1" opacity="0.7"/>
+                            
+                            <!-- 手臂 -->
+                            <rect x="9" y="36" width="4" height="14" fill="#FDBCB4" stroke="#2C3E50"/>
+                            <rect x="35" y="36" width="4" height="14" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 身體 -->
+                            <rect x="16" y="28" width="16" height="12" fill="#FF69B4" stroke="#E91E63"/>
+                            
+                            <!-- 頭部 -->
+                            <circle cx="24" cy="20" r="12" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 長捲髮 -->
+                            <path d="M12 14 Q24 4 36 14 Q38 22 36 30 Q33 26 30 28 Q26 24 24 26 Q22 24 18 28 Q15 26 12 30 Q10 22 12 14" fill="#8B4513" stroke="#654321"/>
+                            <circle cx="15" cy="26" r="3" fill="#8B4513"/>
+                            <circle cx="33" cy="26" r="3" fill="#8B4513"/>
+                            
+                            <!-- 眼睛 -->
+                            <circle cx="20" cy="17" r="2" fill="white"/>
+                            <circle cx="28" cy="17" r="2" fill="white"/>
+                            <circle cx="20" cy="17" r="1.5" fill="#4169E1"/>
+                            <circle cx="28" cy="17" r="1.5" fill="#4169E1"/>
+                            <circle cx="20" cy="16" r="0.5" fill="white"/>
+                            <circle cx="28" cy="16" r="0.5" fill="white"/>
+                            
+                            <!-- 嘴巴 -->
+                            <path d="M21 23 Q24 25 27 23" stroke="#E74C3C" stroke-width="1" fill="none"/>
+                            
+                            <!-- 腮紅 -->
+                            <circle cx="16" cy="21" r="2" fill="#FFB6C1" opacity="0.6"/>
+                            <circle cx="32" cy="21" r="2" fill="#FFB6C1" opacity="0.6"/>
+                        </svg>
+                        <div class="char-name">Mia</div>
+                        <div class="char-speech" id="mia-speech"></div>
+                    </div>
+
+                    <!-- Zoe - 短髮女孩，藍色上衣 -->
+                    <div class="ai-char" id="zoe" style="left: 35%; bottom: 30%;" data-char="zoe" onclick="showProfile(event, 'zoe')">
+                        <svg width="48" height="72" viewBox="0 0 48 72" class="char-svg">
+                            <!-- 陰影 -->
+                            <ellipse cx="24" cy="67" rx="15" ry="4" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- 鞋子 -->
+                            <rect x="16" y="63" width="6" height="4" fill="#FFFFFF" stroke="#E0E0E0"/>
+                            <rect x="26" y="63" width="6" height="4" fill="#FFFFFF" stroke="#E0E0E0"/>
+                            
+                            <!-- 腿部 -->
+                            <rect x="18" y="52" width="4" height="12" fill="#FDBCB4" stroke="#2C3E50"/>
+                            <rect x="26" y="52" width="4" height="12" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 牛仔褲 -->
+                            <rect x="15" y="40" width="18" height="14" fill="#4169E1" stroke="#1E90FF"/>
+                            <line x1="16" y1="44" x2="32" y2="44" stroke="#87CEEB"/>
+                            <line x1="16" y1="48" x2="32" y2="48" stroke="#87CEEB"/>
+                            
+                            <!-- 手臂 -->
+                            <rect x="9" y="30" width="4" height="15" fill="#FDBCB4" stroke="#2C3E50"/>
+                            <rect x="35" y="30" width="4" height="15" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- T恤 -->
+                            <rect x="14" y="24" width="20" height="18" fill="#87CEEB" stroke="#4682B4"/>
+                            <rect x="15" y="27" width="18" height="3" fill="#B0E0E6"/>
+                            
+                            <!-- 頭部 -->
+                            <circle cx="24" cy="16" r="10" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 短髮 -->
+                            <path d="M14 11 Q24 6 34 11 Q36 16 34 21 Q30 19 24 20 Q18 19 14 21 Q12 16 14 11" fill="#FFD700" stroke="#DAA520"/>
+                            
+                            <!-- 眼睛 -->
+                            <circle cx="20" cy="14" r="1.5" fill="white"/>
+                            <circle cx="28" cy="14" r="1.5" fill="white"/>
+                            <circle cx="20" cy="14" r="1" fill="#228B22"/>
+                            <circle cx="28" cy="14" r="1" fill="#228B22"/>
+                            
+                            <!-- 嘴巴 -->
+                            <circle cx="24" cy="19" r="1.5" fill="#FF69B4"/>
+                            
+                            <!-- 腮紅 -->
+                            <circle cx="17" cy="17" r="1.5" fill="#FFB6C1" opacity="0.5"/>
+                            <circle cx="31" cy="17" r="1.5" fill="#FFB6C1" opacity="0.5"/>
+                        </svg>
+                        <div class="char-name">Zoe</div>
+                        <div class="char-speech" id="zoe-speech"></div>
+                    </div>
+
+                    <!-- Ava - 馬尾女孩，運動服 -->
+                    <div class="ai-char" id="ava" style="left: 55%; bottom: 25%;" data-char="ava" onclick="showProfile(event, 'ava')">
+                        <svg width="48" height="72" viewBox="0 0 48 72" class="char-svg">
+                            <!-- 陰影 -->
+                            <ellipse cx="24" cy="67" rx="15" ry="4" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- 運動鞋 -->
+                            <rect x="15" y="61" width="7" height="6" fill="#FF4500" stroke="#DC143C"/>
+                            <rect x="26" y="61" width="7" height="6" fill="#FF4500" stroke="#DC143C"/>
+                            <rect x="16" y="63" width="5" height="1" fill="#FFFFFF"/>
+                            <rect x="27" y="63" width="5" height="1" fill="#FFFFFF"/>
+                            
+                            <!-- 腿部 -->
+                            <rect x="18" y="49" width="4" height="14" fill="#FDBCB4" stroke="#2C3E50"/>
+                            <rect x="26" y="49" width="4" height="14" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 運動短褲 -->
+                            <rect x="15" y="37" width="18" height="14" fill="#8A2BE2" stroke="#7B68EE"/>
+                            <rect x="16" y="39" width="16" height="1" fill="#DDA0DD"/>
+                            
+                            <!-- 手臂 -->
+                            <rect x="8" y="27" width="6" height="16" fill="#FDBCB4" stroke="#2C3E50"/>
+                            <rect x="34" y="27" width="6" height="16" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 運動背心 -->
+                            <rect x="12" y="21" width="24" height="19" fill="#9370DB" stroke="#8A2BE2"/>
+                            <rect x="14" y="24" width="20" height="2" fill="#DDA0DD"/>
+                            <rect x="14" y="28" width="20" height="2" fill="#DDA0DD"/>
+                            
+                            <!-- 頭部 -->
+                            <circle cx="24" cy="15" r="9" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 馬尾髮型 -->
+                            <circle cx="24" cy="10" r="7" fill="#4B0082" stroke="#2F004F"/>
+                            <ellipse cx="36" cy="12" rx="6" ry="11" fill="#4B0082" stroke="#2F004F"/>
+                            
+                            <!-- 眼睛 -->
+                            <circle cx="20" cy="13" r="1.5" fill="white"/>
+                            <circle cx="28" cy="13" r="1.5" fill="white"/>
+                            <circle cx="20" cy="13" r="0.8" fill="#8B4513"/>
+                            <circle cx="28" cy="13" r="0.8" fill="#8B4513"/>
+                            
+                            <!-- 嘴巴 -->
+                            <path d="M21 18 Q24 20 27 18" stroke="#E74C3C" stroke-width="1" fill="none"/>
+                            
+                            <!-- 運動頭帶 -->
+                            <rect x="15" y="9" width="18" height="2" fill="#FF6347" stroke="#DC143C"/>
+                        </svg>
+                        <div class="char-name">Ava</div>
+                        <div class="char-speech" id="ava-speech"></div>
+                    </div>
+
+                    <!-- Nyx - 龐克女孩，黑色皮衣 -->
+                    <div class="ai-char" id="nyx" style="left: 75%; bottom: 35%;" data-char="nyx" onclick="showProfile(event, 'nyx')">
+                        <svg width="48" height="72" viewBox="0 0 48 72" class="char-svg">
+                            <!-- 陰影 -->
+                            <ellipse cx="24" cy="67" rx="15" ry="4" fill="rgba(0,0,0,0.3)"/>
+                            
+                            <!-- 靴子 -->
+                            <rect x="15" y="60" width="7" height="7" fill="#000000" stroke="#333333"/>
+                            <rect x="26" y="60" width="7" height="7" fill="#000000" stroke="#333333"/>
+                            <rect x="14" y="58" width="9" height="3" fill="#333333"/>
+                            <rect x="25" y="58" width="9" height="3" fill="#333333"/>
+                            
+                            <!-- 腿部 -->
+                            <rect x="18" y="45" width="4" height="16" fill="#FDBCB4" stroke="#2C3E50"/>
+                            <rect x="26" y="45" width="4" height="16" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 黑色緊身褲 -->
+                            <rect x="16" y="34" width="16" height="14" fill="#1C1C1C" stroke="#000000"/>
+                            
+                            <!-- 手臂 -->
+                            <rect x="6" y="24" width="8" height="18" fill="#000000" stroke="#333333"/>
+                            <rect x="34" y="24" width="8" height="18" fill="#000000" stroke="#333333"/>
+                            <rect x="8" y="35" width="4" height="7" fill="#FDBCB4"/>
+                            <rect x="36" y="35" width="4" height="7" fill="#FDBCB4"/>
+                            
+                            <!-- 皮衣外套 -->
+                            <rect x="11" y="18" width="26" height="21" fill="#1C1C1C" stroke="#000000"/>
+                            <rect x="12" y="21" width="24" height="1" fill="#333333"/>
+                            <rect x="21" y="19" width="6" height="15" fill="#333333"/>
+                            <circle cx="15" cy="24" r="1.5" fill="#C0C0C0"/>
+                            <circle cx="33" cy="24" r="1.5" fill="#C0C0C0"/>
+                            
+                            <!-- 頭部 -->
+                            <circle cx="24" cy="13" r="8" fill="#FDBCB4" stroke="#2C3E50"/>
+                            
+                            <!-- 龐克髮型 -->
+                            <path d="M16 9 L19 2 L22 6 L24 2 L26 6 L29 2 L32 9 Q28 11 24 12 Q20 11 16 9" fill="#8B008B" stroke="#4B0082"/>
+                            <rect x="20" y="3" width="1" height="6" fill="#FF69B4"/>
+                            <rect x="27" y="3" width="1" height="6" fill="#00FFFF"/>
+                            
+                            <!-- 眼睛 -->
+                            <circle cx="20" cy="11" r="1.5" fill="white"/>
+                            <circle cx="28" cy="11" r="1.5" fill="white"/>
+                            <circle cx="20" cy="11" r="0.8" fill="#8B008B"/>
+                            <circle cx="28" cy="11" r="0.8" fill="#8B008B"/>
+                            
+                            <!-- 嘴巴 -->
+                            <path d="M22 16 Q24 18 26 16" stroke="#8B008B" stroke-width="1" fill="none"/>
+                            
+                            <!-- 穿環 -->
+                            <circle cx="17" cy="15" r="1" fill="none" stroke="#C0C0C0"/>
+                        </svg>
+                        <div class="char-name">Nyx</div>
+                        <div class="char-speech" id="nyx-speech"></div>
+                    </div>
+
+                </div>
+
+                <!-- 家具 -->
+                <div class="furniture-items">
+                    <div class="furniture sofa-furniture" style="left: 10%; bottom: 5%;" onclick="clickFurniture(event, 'sofa')">
+                        🛋️
+                    </div>
+                    <div class="furniture table-furniture" style="left: 40%; bottom: 8%;" onclick="clickFurniture(event, 'table')">
+                        🪑
+                    </div>
+                    <div class="furniture plant-furniture" style="right: 15%; bottom: 5%;" onclick="clickFurniture(event, 'plant')">
+                        🪴
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- 聊天面板 -->
+            <div class="chat-panel">
+                <div class="chat-header">
+                    <span><i class="fas fa-comments"></i> 聊天室</span>
+                    <button onclick="toggleChat()">
+                        <i class="fas fa-chevron-up" id="chatToggle"></i>
+                    </button>
+                </div>
+                <div class="chat-body" id="chatBody">
+                    <div class="messages" id="messages">
+                        <div class="message ai-message">
+                            <strong>Mia:</strong> 歡迎來到 AI 社交房間！每個人都可以創造自己專屬的 AI 助理！
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="說點什麼..." onkeypress="handleKeyPress(event)">
+                        <button onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 角色資料卡 -->
+    <div class="profile-modal" id="profileModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="profileName">Mia</h3>
+                <button onclick="closeProfile()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-avatar" id="profileAvatar">
+                    <!-- 角色圖像將在這裡 -->
+                </div>
+                <div class="profile-info">
+                    <div class="info-item">
+                        <strong>專長:</strong> <span id="profileSkill">時尚穿搭</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>個性:</strong> <span id="profilePersonality">溫柔友善</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>造型:</strong> <span id="profileLook">長捲髮 + 粉色洋裝</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>經驗值:</strong> <span id="profileExp">2560</span>
+                    </div>
+                    <div class="profile-desc" id="profileDesc">
+                        我是 Mia，你的個人專屬 AI 助理！擅長時尚穿搭建議！
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-primary" onclick="customizeAI()">個人化設定</button>
+                        <button class="btn btn-secondary" onclick="startChat()">開始對話</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* AI Room Styles */
+        .ai-room {
+            background: linear-gradient(180deg, #87CEEB 0%, #98FB98 50%, #DDA0DD 100%);
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            cursor: crosshair;
+        }
+
+        .room-scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                linear-gradient(180deg, #FF6B9D 0%, #4ECDC4 50%, #DDA0DD 100%);
+            transition: all 0.5s ease;
+        }
+
+        .room-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 50px),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.1) 0, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 50px);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        /* Room Buttons */
+        .room-btn {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #2C3E50;
+            color: #2C3E50;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .room-btn.active, .room-btn:hover {
+            background: #2C3E50;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* AI Characters */
+        .ai-characters {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        .ai-char {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 15;
+            animation: charIdle 3s ease-in-out infinite;
+        }
+
+        .ai-char:hover {
+            transform: scale(1.2);
+            z-index: 20;
+        }
+
+        .ai-char.moving {
+            transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: charWalk 0.5s ease-in-out;
+        }
+
+        @keyframes charIdle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes charWalk {
+            0%, 100% { transform: scaleX(1); }
+            25% { transform: scaleX(1.1) translateX(2px); }
+            75% { transform: scaleX(0.9) translateX(-2px); }
+        }
+
+        .char-svg {
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        .char-name {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 3px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            border: 1px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .char-speech {
+            position: absolute;
+            bottom: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            border: 2px solid #2C3E50;
+            padding: 5px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+            white-space: nowrap;
+            max-width: 100px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 25;
+            pointer-events: none;
+        }
+
+        .char-speech::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(255,255,255,0.95);
+        }
+
+        .char-speech.show {
+            opacity: 1;
+            bottom: 95px;
+        }
+
+        /* Furniture */
+        .furniture-items {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
+        .furniture {
+            position: absolute;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+            animation: furnitureFloat 6s ease-in-out infinite;
+        }
+
+        .furniture:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes furnitureFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Chat Panel */
+        .chat-panel {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            width: 280px;
+            background: rgba(255,255,255,0.98);
+            border: 3px solid #2C3E50;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+            z-index: 30;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .chat-header button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 3px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .chat-body {
+            max-height: 220px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .messages {
+            padding: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 6px;
+            padding: 5px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            line-height: 1.3;
+            animation: messageIn 0.3s ease;
+        }
+
+        .message.ai-message {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1));
+            border-left: 3px solid var(--primary-brand);
+        }
+
+        .message.user-message {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-input {
+            padding: 8px 10px;
+            border-top: 2px solid #e9ecef;
+            display: flex;
+            gap: 6px;
+            background: #f8f9fa;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            outline: none;
+            font-size: 11px;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary-brand);
+        }
+
+        .chat-input button {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Profile Modal */
+        .profile-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-card {
+            background: white;
+            border: 3px solid #2C3E50;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 17px 17px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .modal-header button {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-header button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border: 3px solid #2C3E50;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .info-item {
+            margin: 8px 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .info-item strong {
+            color: var(--primary-brand);
+            font-weight: 700;
+        }
+
+        .profile-desc {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-brand);
+            margin: 12px 0;
+            font-style: italic;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chat-panel {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+            
+            .modal-body {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .ai-char {
+                transform: scale(0.9);
+            }
+            
+            .room-btn {
+                font-size: 11px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+
+    <script>
+        // 角色資料
+        const characters = {
+            mia: {
+                name: 'Mia',
+                skill: '時尚穿搭',
+                personality: '溫柔友善',
+                look: '長捲髮 + 粉色洋裝',
+                exp: 2560,
+                desc: '我是 Mia，你的個人專屬 AI 助理！可以根據你的喜好進行個人化設定，擅長時尚穿搭建議！',
+                greetings: ['嗨！我可以成為你的專屬助理！', '想要個人化設定嗎？', '今天想聊穿搭嗎？', '我可以學習你的風格！']
+            },
+            zoe: {
+                name: 'Zoe',
+                skill: '美妝保養',
+                personality: '活潑開朗',
+                look: '短髮 + 藍色T恤',
+                exp: 1890,
+                desc: '我是 Zoe，你的個人美妝顧問！可以針對你的需求調整個性和建議方式！',
+                greetings: ['哈囉！我可以當你的專屬助理！', '想客製化我的功能嗎？', '今天心情超好！', '我可以學習你的喜好！']
+            },
+            ava: {
+                name: 'Ava',
+                skill: '健康運動',
+                personality: '充滿活力',
+                look: '馬尾 + 運動服',
+                exp: 3200,
+                desc: '我是 Ava，你的運動夥伴！可以根據你的運動習慣和目標進行個人化調整！',
+                greetings: ['準備好個人化體驗了嗎？', '我可以成為你的專屬教練！', '運動讓人充滿活力！', '想要量身打造的建議嗎？']
+            },
+            nyx: {
+                name: 'Nyx',
+                skill: '創意藝術',
+                personality: '獨特個性',
+                look: '龐克髮 + 皮衣',
+                exp: 2100,
+                desc: '我是 Nyx，你的創意夥伴！可以適應你的個性和創作風格，提供獨特的藝術建議！',
+                greetings: ['想要獨一無二的助理嗎？', '我可以配合你的風格！', '個性就是最好的表達！', '讓我成為你的專屬創意助理！']
+            }
+        };
+
+        const rooms = {
+            fashion: { name: '時尚穿搭房', emoji: '🎀', bg: 'linear-gradient(180deg, #FF6B9D 0%, #4ECDC4 50%, #DDA0DD 100%)' },
+            beauty: { name: '美妝保養房', emoji: '💄', bg: 'linear-gradient(180deg, #DDA0DD 0%, #F0E68C 50%, #98FB98 100%)' },
+            travel: { name: '旅行探索房', emoji: '✈️', bg: 'linear-gradient(180deg, #87CEEB 0%, #98FB98 50%, #FFD700 100%)' },
+            music: { name: '音樂聊天房', emoji: '🎵', bg: 'linear-gradient(180deg, #DA70D6 0%, #20B2AA 50%, #FF6347 100%)' }
+        };
+
+        let currentRoom = 'fashion';
+        let chatOpen = true;
+        let selectedChar = null;
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCharacterInteractions();
+            startRandomActivities();
+            addMessage('Mia: 歡迎來到 AI 社交房間！點擊我們任何一個來創造你的專屬 AI 助理！', 'ai');
+        });
+
+        // 角色互動設定
+        function setupCharacterInteractions() {
+            const chars = document.querySelectorAll('.ai-char');
+            chars.forEach(char => {
+                const charId = char.getAttribute('data-char');
+                const speech = char.querySelector('.char-speech');
+                
+                char.addEventListener('mouseenter', function() {
+                    const character = characters[charId];
+                    if (character) {
+                        const greeting = character.greetings[Math.floor(Math.random() * character.greetings.length)];
+                        speech.textContent = greeting;
+                        speech.classList.add('show');
+                    }
+                });
+                
+                char.addEventListener('mouseleave', function() {
+                    speech.classList.remove('show');
+                });
+            });
+        }
+
+        // 移動到指定位置
+        function moveToPosition(event) {
+            // 阻止事件冒泡到角色點擊
+            if (event.target.closest('.ai-char') || event.target.closest('.furniture') || event.target.closest('.chat-panel')) {
+                return;
+            }
+
+            const container = document.getElementById('roomContainer');
+            const rect = container.getBoundingClientRect();
+            const x = ((event.clientX - rect.left) / rect.width) * 100;
+            const y = ((rect.bottom - event.clientY) / rect.height) * 100;
+
+            // 移動所有角色（模擬社交互動）
+            const chars = document.querySelectorAll('.ai-char');
+            chars.forEach((char, index) => {
+                setTimeout(() => {
+                    char.classList.add('moving');
+                    const randomOffset = (Math.random() - 0.5) * 20;
+                    char.style.left = Math.max(5, Math.min(90, x + randomOffset)) + '%';
+                    char.style.bottom = Math.max(10, Math.min(80, y + randomOffset)) + '%';
+                    
+                    setTimeout(() => {
+                        char.classList.remove('moving');
+                    }, 2000);
+                }, index * 200);
+            });
+
+            addMessage('系統: AI 助理們正在移動到新位置...', 'ai');
+        }
+
+        // 顯示角色資料
+        function showProfile(event, charId) {
+            event.stopPropagation();
+            const character = characters[charId];
+            if (!character) return;
+            
+            selectedChar = charId;
+            document.getElementById('profileName').textContent = character.name;
+            document.getElementById('profileSkill').textContent = character.skill;
+            document.getElementById('profilePersonality').textContent = character.personality;
+            document.getElementById('profileLook').textContent = character.look;
+            document.getElementById('profileExp').textContent = character.exp;
+            document.getElementById('profileDesc').textContent = character.desc;
+            
+            // 複製角色圖像到資料卡
+            const originalSvg = document.querySelector(`#${charId} .char-svg`);
+            const profileAvatar = document.getElementById('profileAvatar');
+            profileAvatar.innerHTML = '';
+            const clonedSvg = originalSvg.cloneNode(true);
+            clonedSvg.style.width = '70px';
+            clonedSvg.style.height = '70px';
+            profileAvatar.appendChild(clonedSvg);
+            
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function closeProfile() {
+            document.getElementById('profileModal').style.display = 'none';
+            selectedChar = null;
+        }
+
+        function customizeAI() {
+            if (selectedChar) {
+                const charName = characters[selectedChar].name;
+                addMessage(`${charName}: 太好了！我現在開始學習成為你的專屬 AI 助理！你可以教我你的喜好和需求！`, 'ai');
+                closeProfile();
+                
+                setTimeout(() => {
+                    addMessage(`${charName}: 我正在根據你的個人風格進行調整...請告訴我你的偏好！`, 'ai');
+                }, 2000);
+            }
+        }
+
+        function startChat() {
+            if (selectedChar) {
+                const charName = characters[selectedChar].name;
+                const character = characters[selectedChar];
+                const responses = [
+                    `${charName}: 嗨！我現在是你的個人專屬助理！想聊聊${character.skill}嗎？`,
+                    `${charName}: 我已經準備好為你提供個人化的${character.skill}建議了！`,
+                    `${charName}: 作為你的專屬助理，我會學習你的喜好來提供最適合的建議！`
+                ];
+                addMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
+                closeProfile();
+            }
+        }
+
+        // 房間切換
+        function switchRoom(roomType) {
+            if (!rooms[roomType]) return;
+            
+            currentRoom = roomType;
+            const room = rooms[roomType];
+            
+            document.getElementById('roomEmoji').textContent = room.emoji;
+            document.getElementById('roomName').textContent = room.name;
+            
+            const roomScene = document.getElementById('roomScene');
+            roomScene.style.background = `radial-gradient(circle at 30% 40%, rgba(255,255,255,0.3) 0%, transparent 50%), ${room.bg}`;
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.room-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-room="${roomType}"]`).classList.add('active');
+            
+            addMessage(`歡迎來到${room.name}！`, 'ai');
+        }
+
+        // 家具互動
+        function clickFurniture(event, type) {
+            event.stopPropagation();
+            const messages = {
+                sofa: 'Mia: 這沙發坐起來很舒服呢！一起坐下聊天吧！',
+                table: 'Zoe: 桌上有好多時尚雜誌，一起來看看吧！',
+                plant: 'Ava: 這植物讓房間充滿生機！就像運動帶來的活力！'
+            };
+            addMessage(messages[type] || 'Nyx: 這家具很有藝術感呢！', 'ai');
+        }
+
+        // 聊天功能
+        function toggleChat() {
+            const chatBody = document.getElementById('chatBody');
+            const chatToggle = document.getElementById('chatToggle');
+            
+            if (chatOpen) {
+                chatBody.style.maxHeight = '0';
+                chatToggle.className = 'fas fa-chevron-down';
+            } else {
+                chatBody.style.maxHeight = '220px';
+                chatToggle.className = 'fas fa-chevron-up';
+            }
+            chatOpen = !chatOpen;
+        }
+
+        function addMessage(text, type = 'user') {
+            const messages = document.getElementById('messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${type}-message`;
+            
+            if (type === 'ai') {
+                msgDiv.innerHTML = `<strong>${text.split(':')[0]}:</strong> ${text.split(':').slice(1).join(':')}`;
+            } else {
+                msgDiv.innerHTML = `<strong>You:</strong> ${text}`;
+            }
+            
+            messages.appendChild(msgDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                setTimeout(() => {
+                    const responses = [
+                        'Mia: 我正在學習你的喜好，這個想法很棒！',
+                        'Zoe: 作為你的專屬助理，我覺得這很有趣！',
+                        'Ava: 我會記住這個偏好，調整我的建議方式！',
+                        'Nyx: 每個人都有獨特的風格，我在適應你的個性！'
+                    ];
+                    addMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
+                }, 1500);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // 隨機活動
+        function startRandomActivities() {
+            // 隨機對話氣泡
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    const charIds = Object.keys(characters);
+                    const randomCharId = charIds[Math.floor(Math.random() * charIds.length)];
+                    const character = characters[randomCharId];
+                    const speech = document.querySelector(`#${randomCharId} .char-speech`);
+                    
+                    if (speech && character) {
+                        const greeting = character.greetings[Math.floor(Math.random() * character.greetings.length)];
+                        speech.textContent = greeting;
+                        speech.classList.add('show');
+                        
+                        setTimeout(() => {
+                            speech.classList.remove('show');
+                        }, 3000);
+                    }
+                }
+            }, 8000);
+
+            // 隨機聊天訊息
+            setInterval(() => {
+                if (Math.random() > 0.92) {
+                    const autoMessages = [
+                        'Mia: 我可以根據你的風格調整建議方式！',
+                        'Zoe: 每個人都可以有專屬的 AI 助理！',
+                        'Ava: 個人化設定讓互動更有意義！',
+                        'Nyx: 我們都在學習如何成為更好的助理！'
+                    ];
+                    addMessage(autoMessages[Math.floor(Math.random() * autoMessages.length)], 'ai');
+                }
+            }, 25000);
+
+            // 隨機移動
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const chars = document.querySelectorAll('.ai-char');
+                    chars.forEach(char => {
+                        if (Math.random() > 0.8) {
+                            const currentLeft = parseFloat(char.style.left || '50');
+                            const currentBottom = parseFloat(char.style.bottom || '25');
+                            const newLeft = Math.max(5, Math.min(90, currentLeft + (Math.random() - 0.5) * 30));
+                            const newBottom = Math.max(10, Math.min(80, currentBottom + (Math.random() - 0.5) * 20));
+                            
+                            char.classList.add('moving');
+                            char.style.left = newLeft + '%';
+                            char.style.bottom = newBottom + '%';
+                            
+                            setTimeout(() => {
+                                char.classList.remove('moving');
+                            }, 2000);
+                        }
+                    });
+                }
+            }, 15000);
+        }
+
+        // 點擊外部關閉視窗
+        document.getElementById('profileModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProfile();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE 76 - Habbo 風格房間 (可見版本)</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">BE 76</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="assistant.html" class="nav-link">個人助理</a>
+                    <a href="social-rooms.html" class="nav-link">AI 社交</a>
+                    <a href="habbo-visible.html" class="nav-link active">Habbo 房間</a>
+                    <a href="profile.html" class="nav-link">個人檔案</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="switchRoom('beauty')">
+                        <i class="fas fa-random"></i> 切換房間
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Room Title -->
+    <section style="padding: 40px 0; background: var(--neutral-light);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 30px;">
+                <span id="currentRoomEmoji">🎀</span>
+                <span id="currentRoomName">時尚穿搭房</span>
+                <span style="background: var(--primary-light); color: var(--primary-deep); padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; margin-left: 16px;">
+                    👥 <span id="roomUsers">12</span> 人在線
+                </span>
+            </h2>
+            
+            <!-- Room Tabs -->
+            <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 20px;">
+                <button class="room-tab-simple active" data-room="fashion" onclick="switchRoom('fashion')">
+                    🎀 時尚
+                </button>
+                <button class="room-tab-simple" data-room="beauty" onclick="switchRoom('beauty')">
+                    💄 美妝
+                </button>
+                <button class="room-tab-simple" data-room="travel" onclick="switchRoom('travel')">
+                    ✈️ 旅行
+                </button>
+                <button class="room-tab-simple" data-room="music" onclick="switchRoom('music')">
+                    🎵 音樂
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Room -->
+    <section style="padding: 40px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 70vh; position: relative;">
+        <div class="game-room-container">
+            
+            <!-- Room Background -->
+            <div class="room-background" id="roomBackground">
+                <!-- Floor pattern -->
+                <div class="floor-pattern"></div>
+                
+                <!-- Wall decorations -->
+                <div class="wall-decor">
+                    <div class="decor-item" style="left: 10%; top: 20%;">🖼️</div>
+                    <div class="decor-item" style="left: 80%; top: 15%;">🌟</div>
+                    <div class="decor-item" style="left: 15%; top: 80%;">🪴</div>
+                    <div class="decor-item" style="right: 15%; top: 75%;">🛋️</div>
+                </div>
+            </div>
+            
+            <!-- Characters Container -->
+            <div class="characters-game-container">
+                
+                <!-- Amber Character -->
+                <div class="game-character" id="amber" style="left: 20%; top: 40%;" onclick="showCharacterInfo('amber')">
+                    <div class="char-sprite amber-sprite">
+                        <!-- Head -->
+                        <div class="char-head">
+                            <div class="char-hair amber-hair">👩‍🦰</div>
+                            <div class="char-face">
+                                <div class="eyes">👀</div>
+                                <div class="mouth">😊</div>
+                            </div>
+                        </div>
+                        <!-- Body -->
+                        <div class="char-body amber-body">
+                            <div class="char-shirt">👚</div>
+                        </div>
+                        <!-- Legs -->
+                        <div class="char-legs">
+                            <div class="char-pants">👖</div>
+                            <div class="char-feet">👠</div>
+                        </div>
+                    </div>
+                    <div class="char-name">Amber</div>
+                    <div class="char-shadow"></div>
+                    <div class="speech-bubble" id="amber-speech"></div>
+                </div>
+
+                <!-- Bella Character -->
+                <div class="game-character" id="bella" style="left: 40%; top: 30%;" onclick="showCharacterInfo('bella')">
+                    <div class="char-sprite bella-sprite">
+                        <div class="char-head">
+                            <div class="char-hair bella-hair">👱‍♀️</div>
+                            <div class="char-face">
+                                <div class="eyes">👀</div>
+                                <div class="mouth">😄</div>
+                            </div>
+                        </div>
+                        <div class="char-body bella-body">
+                            <div class="char-shirt">👕</div>
+                        </div>
+                        <div class="char-legs">
+                            <div class="char-pants">👗</div>
+                            <div class="char-feet">👡</div>
+                        </div>
+                    </div>
+                    <div class="char-name">Bella</div>
+                    <div class="char-shadow"></div>
+                    <div class="speech-bubble" id="bella-speech"></div>
+                </div>
+
+                <!-- Emma Character -->
+                <div class="game-character" id="emma" style="left: 60%; top: 50%;" onclick="showCharacterInfo('emma')">
+                    <div class="char-sprite emma-sprite">
+                        <div class="char-head">
+                            <div class="char-hair emma-hair">👩‍🦳</div>
+                            <div class="char-face">
+                                <div class="eyes">👀</div>
+                                <div class="mouth">😃</div>
+                            </div>
+                        </div>
+                        <div class="char-body emma-body">
+                            <div class="char-shirt">🧥</div>
+                        </div>
+                        <div class="char-legs">
+                            <div class="char-pants">👖</div>
+                            <div class="char-feet">👟</div>
+                        </div>
+                    </div>
+                    <div class="char-name">Emma</div>
+                    <div class="char-shadow"></div>
+                    <div class="speech-bubble" id="emma-speech"></div>
+                </div>
+
+                <!-- Luna Character -->
+                <div class="game-character" id="luna" style="left: 80%; top: 35%;" onclick="showCharacterInfo('luna')">
+                    <div class="char-sprite luna-sprite">
+                        <div class="char-head">
+                            <div class="char-hair luna-hair">👩‍🎤</div>
+                            <div class="char-face">
+                                <div class="eyes">👀</div>
+                                <div class="mouth">😎</div>
+                            </div>
+                        </div>
+                        <div class="char-body luna-body">
+                            <div class="char-shirt">🎽</div>
+                        </div>
+                        <div class="char-legs">
+                            <div class="char-pants">🩳</div>
+                            <div class="char-feet">🥾</div>
+                        </div>
+                    </div>
+                    <div class="char-name">Luna</div>
+                    <div class="char-shadow"></div>
+                    <div class="speech-bubble" id="luna-speech"></div>
+                </div>
+
+            </div>
+
+            <!-- Chat Panel -->
+            <div class="chat-panel-game">
+                <div class="chat-header-game">
+                    <i class="fas fa-comments"></i> 房間聊天
+                    <button onclick="toggleChat()" class="chat-toggle-btn">
+                        <i class="fas fa-chevron-up" id="chat-icon"></i>
+                    </button>
+                </div>
+                <div class="chat-content-game" id="chatContent">
+                    <div class="chat-messages-game" id="chatMessages">
+                        <div class="message ai-msg">
+                            <strong>Amber:</strong> 歡迎來到時尚穿搭房！大家都穿得好漂亮呢！
+                        </div>
+                    </div>
+                    <div class="chat-input-game">
+                        <input type="text" id="messageInput" placeholder="輸入訊息..." onkeypress="handleEnter(event)">
+                        <button onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Character Modal -->
+    <div class="character-modal-game" id="characterModal">
+        <div class="modal-content-game">
+            <div class="modal-header-game">
+                <h3 id="modalCharacterName">Amber</h3>
+                <button onclick="closeModal()" class="close-btn-game">&times;</button>
+            </div>
+            <div class="modal-body-game">
+                <div class="char-avatar-large" id="modalAvatar">
+                    <div class="large-sprite">👗</div>
+                </div>
+                <div class="char-details-game">
+                    <p><strong>專長:</strong> <span id="modalSkill">時尚穿搭</span></p>
+                    <p><strong>個性:</strong> <span id="modalPersonality">溫柔友善</span></p>
+                    <p><strong>經驗值:</strong> <span id="modalExp">2560</span></p>
+                    <p><strong>服裝風格:</strong> <span id="modalStyle">甜美可愛風</span></p>
+                    <div class="char-description" id="modalDescription">
+                        我是 Amber，你的專屬時尚顧問！今天穿了最喜歡的粉色系穿搭！
+                    </div>
+                    <div class="modal-actions-game">
+                        <button class="btn btn-primary" onclick="startChat()">開始對話</button>
+                        <button class="btn btn-secondary" onclick="closeModal()">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Simple but visible character styles */
+        .game-room-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            overflow: hidden;
+        }
+
+        .room-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b9d 0%, #4ecdc4 100%);
+            transition: all 0.5s ease;
+        }
+
+        .floor-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(255,255,255,0.1) 0px,
+                    rgba(255,255,255,0.1) 20px,
+                    transparent 20px,
+                    transparent 40px
+                );
+            opacity: 0.7;
+        }
+
+        .wall-decor {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .decor-item {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.8;
+            animation: decorFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes decorFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .characters-game-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        /* Game Characters - Guaranteed Visible */
+        .game-character {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 20;
+            animation: characterBob 3s ease-in-out infinite;
+        }
+
+        .game-character:hover {
+            transform: scale(1.2);
+            z-index: 50;
+        }
+
+        @keyframes characterBob {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .char-sprite {
+            position: relative;
+            width: 80px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .char-head {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background: #fdbcb4;
+            border: 3px solid #2d3436;
+            border-radius: 50%;
+            margin-bottom: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .char-hair {
+            position: absolute;
+            top: -15px;
+            font-size: 1.5rem;
+            z-index: 1;
+        }
+
+        .char-face {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .eyes {
+            font-size: 0.8rem;
+        }
+
+        .mouth {
+            font-size: 0.7rem;
+        }
+
+        .char-body {
+            position: relative;
+            width: 40px;
+            height: 35px;
+            border: 3px solid #2d3436;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .char-shirt {
+            font-size: 1.2rem;
+        }
+
+        .char-legs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .char-pants {
+            font-size: 1rem;
+        }
+
+        .char-feet {
+            font-size: 0.9rem;
+        }
+
+        /* Character specific colors */
+        .amber-sprite .char-body { background: linear-gradient(135deg, #ff6b9d, #ff8fab); }
+        .bella-sprite .char-body { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+        .emma-sprite .char-body { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .luna-sprite .char-body { background: linear-gradient(135deg, #fd79a8, #e84393); }
+
+        .char-name {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .char-shadow {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+
+        .speech-bubble {
+            position: absolute;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            border: 3px solid #2d3436;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            max-width: 120px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: rgba(255,255,255,0.95);
+        }
+
+        .speech-bubble.show {
+            opacity: 1;
+            bottom: 150px;
+        }
+
+        /* Room Tabs */
+        .room-tab-simple {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid var(--primary-brand);
+            color: var(--primary-brand);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .room-tab-simple.active, .room-tab-simple:hover {
+            background: var(--primary-brand);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Chat Panel */
+        .chat-panel-game {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            width: 320px;
+            background: rgba(255,255,255,0.98);
+            border: 3px solid #2d3436;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .chat-header-game {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 17px 17px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .chat-toggle-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-toggle-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .chat-content-game {
+            max-height: 300px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .chat-messages-game {
+            padding: 16px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.4;
+            animation: messageSlide 0.3s ease;
+        }
+
+        .message.ai-msg {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1));
+            border-left: 4px solid var(--primary-brand);
+        }
+
+        .message.user-msg {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .chat-input-game {
+            padding: 12px 16px;
+            border-top: 2px solid #e9ecef;
+            display: flex;
+            gap: 8px;
+            background: #f8f9fa;
+        }
+
+        .chat-input-game input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid #dee2e6;
+            border-radius: 20px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .chat-input-game input:focus {
+            border-color: var(--primary-brand);
+        }
+
+        .chat-input-game button {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input-game button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .character-modal-game {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content-game {
+            background: white;
+            border: 3px solid #2d3436;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header-game {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 17px 17px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header-game h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn-game {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn-game:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body-game {
+            padding: 24px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .char-avatar-large {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary);
+            border: 3px solid #2d3436;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .large-sprite {
+            font-size: 3rem;
+        }
+
+        .char-details-game {
+            flex: 1;
+        }
+
+        .char-details-game p {
+            margin: 10px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .char-details-game strong {
+            color: var(--primary-brand);
+            font-weight: 700;
+        }
+
+        .char-description {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-brand);
+            margin: 16px 0;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .modal-actions-game {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chat-panel-game {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+            
+            .modal-body-game {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .game-character {
+                transform: scale(0.8);
+            }
+        }
+    </style>
+
+    <script>
+        // Character data
+        const characterData = {
+            amber: { 
+                name: 'Amber', 
+                skill: '時尚穿搭', 
+                personality: '溫柔友善', 
+                exp: 2560, 
+                style: '甜美可愛風',
+                description: '我是 Amber，你的專屬時尚顧問！今天穿了最喜歡的粉色系穿搭！',
+                avatar: '👗'
+            },
+            bella: { 
+                name: 'Bella', 
+                skill: '美妝保養', 
+                personality: '活潑開朗', 
+                exp: 1890, 
+                style: '清新自然風',
+                description: '嗨！我是 Bella，美妝達人！這套藍色系穿搭很適合春天呢！',
+                avatar: '💄'
+            },
+            emma: { 
+                name: 'Emma', 
+                skill: '旅行規劃', 
+                personality: '冒險精神', 
+                exp: 3200, 
+                style: '休閒運動風',
+                description: '我是 Emma，旅行專家！這身運動裝適合各種戶外活動！',
+                avatar: '✈️'
+            },
+            luna: { 
+                name: 'Luna', 
+                skill: '音樂品味', 
+                personality: '藝術氣息', 
+                exp: 2100, 
+                style: '搖滾個性風',
+                description: '我是 Luna，音樂愛好者！今天的個性風穿搭如何？',
+                avatar: '🎵'
+            }
+        };
+
+        const roomData = {
+            fashion: { name: '時尚穿搭房', emoji: '🎀', users: 12, bgColor: '#ff6b9d' },
+            beauty: { name: '美妝保養房', emoji: '💄', users: 8, bgColor: '#dda0dd' },
+            travel: { name: '旅行探索房', emoji: '✈️', users: 15, bgColor: '#87ceeb' },
+            music: { name: '音樂聊天房', emoji: '🎵', users: 6, bgColor: '#da70d6' }
+        };
+
+        let currentRoom = 'fashion';
+        let chatOpen = true;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCharacterEvents();
+            showWelcomeMessage();
+            startRandomActivities();
+        });
+
+        // Character interactions
+        function setupCharacterEvents() {
+            const characters = document.querySelectorAll('.game-character');
+            characters.forEach(char => {
+                const charId = char.id;
+                
+                char.addEventListener('mouseenter', function() {
+                    const bubble = this.querySelector('.speech-bubble');
+                    const greetings = [
+                        '嗨！你好！',
+                        '歡迎來聊天！',
+                        '今天過得如何？',
+                        '喜歡我的穿搭嗎？',
+                        '想要聊聊嗎？'
+                    ];
+                    bubble.textContent = greetings[Math.floor(Math.random() * greetings.length)];
+                    bubble.classList.add('show');
+                });
+                
+                char.addEventListener('mouseleave', function() {
+                    const bubble = this.querySelector('.speech-bubble');
+                    bubble.classList.remove('show');
+                });
+            });
+        }
+
+        function showCharacterInfo(characterId) {
+            const char = characterData[characterId];
+            if (!char) return;
+            
+            document.getElementById('modalCharacterName').textContent = char.name;
+            document.getElementById('modalSkill').textContent = char.skill;
+            document.getElementById('modalPersonality').textContent = char.personality;
+            document.getElementById('modalExp').textContent = char.exp;
+            document.getElementById('modalStyle').textContent = char.style;
+            document.getElementById('modalDescription').textContent = char.description;
+            document.querySelector('.large-sprite').textContent = char.avatar;
+            
+            document.getElementById('characterModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('characterModal').style.display = 'none';
+        }
+
+        function startChat() {
+            const charName = document.getElementById('modalCharacterName').textContent;
+            const responses = [
+                `${charName}: 嗨！很高興和你聊天！想聊什麼呢？`,
+                `${charName}: 歡迎！需要任何建議嗎？`,
+                `${charName}: 哈囉！今天心情如何？`
+            ];
+            addMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
+            closeModal();
+        }
+
+        // Room switching
+        function switchRoom(roomType) {
+            if (!roomData[roomType]) return;
+            
+            currentRoom = roomType;
+            const room = roomData[roomType];
+            
+            // Update UI
+            document.getElementById('currentRoomEmoji').textContent = room.emoji;
+            document.getElementById('currentRoomName').textContent = room.name;
+            document.getElementById('roomUsers').textContent = room.users;
+            
+            // Update room background
+            const bg = document.getElementById('roomBackground');
+            bg.style.background = `linear-gradient(135deg, ${room.bgColor} 0%, #4ecdc4 100%)`;
+            
+            // Update active tab
+            document.querySelectorAll('.room-tab-simple').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-room="${roomType}"]`).classList.add('active');
+            
+            // Add message
+            addMessage(`歡迎來到${room.name}！房間氛圍煥然一新！`, 'ai');
+        }
+
+        // Chat functions
+        function toggleChat() {
+            const content = document.getElementById('chatContent');
+            const icon = document.getElementById('chat-icon');
+            
+            if (chatOpen) {
+                content.style.maxHeight = '0';
+                icon.className = 'fas fa-chevron-down';
+            } else {
+                content.style.maxHeight = '300px';
+                icon.className = 'fas fa-chevron-up';
+            }
+            chatOpen = !chatOpen;
+        }
+
+        function addMessage(message, type = 'user') {
+            const container = document.getElementById('chatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${type}-msg`;
+            
+            if (type === 'ai') {
+                msgDiv.innerHTML = `<strong>${message.split(':')[0]}:</strong> ${message.split(':').slice(1).join(':')}`;
+            } else {
+                msgDiv.innerHTML = `<strong>You:</strong> ${message}`;
+            }
+            
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                setTimeout(() => {
+                    const responses = [
+                        'Amber: 這個想法很棒！我覺得可以試試粉色系的搭配...',
+                        'Bella: 哇！我也這麼想！讓我推薦一些美妝技巧給你！',
+                        'Emma: 聽起來很有趣！這讓我想到上次去巴黎的經歷...',
+                        'Luna: 很有創意呢！這就像音樂一樣需要節拍和韻律！'
+                    ];
+                    addMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
+                }, 1500);
+            }
+        }
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Random activities
+        function startRandomActivities() {
+            // Random character speech
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const characters = document.querySelectorAll('.game-character');
+                    const randomChar = characters[Math.floor(Math.random() * characters.length)];
+                    const bubble = randomChar.querySelector('.speech-bubble');
+                    
+                    const randomTexts = [
+                        '今天天氣真好！',
+                        '你覺得我的新髮型如何？',
+                        '想聽聽音樂嗎？',
+                        '這件衣服好看嗎？',
+                        '大家一起聊天吧！'
+                    ];
+                    
+                    bubble.textContent = randomTexts[Math.floor(Math.random() * randomTexts.length)];
+                    bubble.classList.add('show');
+                    
+                    setTimeout(() => {
+                        bubble.classList.remove('show');
+                    }, 3000);
+                }
+            }, 6000);
+
+            // Random chat messages
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    const autoMessages = [
+                        'Amber: 剛剛看到一個很棒的穿搭靈感！',
+                        'Bella: 今天試了新的化妝技巧！',
+                        'Emma: 計劃下次旅行要去哪裡呢？',
+                        'Luna: 這首歌的節拍太棒了！'
+                    ];
+                    addMessage(autoMessages[Math.floor(Math.random() * autoMessages.length)], 'ai');
+                }
+            }, 15000);
+        }
+
+        function showWelcomeMessage() {
+            setTimeout(() => {
+                addMessage('Amber: 歡迎來到 BE 76 的 Habbo 風格房間！我們都在這裡等你聊天呢！', 'ai');
+            }, 2000);
+        }
+
+        // Click outside modal to close
+        document.getElementById('characterModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

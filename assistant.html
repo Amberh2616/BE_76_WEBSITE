@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人助理 - Amber | BE 76 AI 社交平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body style="background: linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 50%, #9C27B0 100%);">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">BE 76</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="assistant.html" class="nav-link active">個人助理</a>
+                    <a href="social-rooms.html" class="nav-link">AI 社交</a>
+                    <a href="profile.html" class="nav-link">個人檔案</a>
+                    <a href="about.html" class="nav-link">關於我們</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="social-rooms.html" class="btn btn-secondary">探索社交</a>
+                    <button class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Assistant Interface -->
+    <section style="padding: 100px 0; min-height: 100vh; display: flex; align-items: center;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start;">
+                
+                <!-- Amber Avatar Section -->
+                <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 30px; padding: 40px; box-shadow: var(--shadow-2xl); text-align: center; position: sticky; top: 120px;">
+                    <h2 style="color: var(--primary-brand); margin-bottom: 20px; font-size: 1.8rem;">
+                        <i class="fas fa-magic"></i> Amber 專屬造型師
+                    </h2>
+                    
+                    <!-- Large Avatar Display -->
+                    <div style="position: relative; width: 300px; height: 350px; background: var(--gradient-primary); border-radius: 25px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-xl);">
+                        <div class="avatar-3d interactive-element" style="transform: scale(1.2);" id="assistantAvatar">
+                            <div class="avatar-head-3d">
+                                <div class="avatar-hair-3d"></div>
+                                <div class="avatar-eyes-3d">
+                                    <div class="eye-3d">
+                                        <div class="iris-3d">
+                                            <div class="pupil-3d">
+                                                <div class="highlight-3d"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="eye-3d">
+                                        <div class="iris-3d">
+                                            <div class="pupil-3d">
+                                                <div class="highlight-3d"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="avatar-nose-3d"></div>
+                                <div class="avatar-mouth-3d"></div>
+                                <div class="avatar-blush-3d blush-left-3d"></div>
+                                <div class="avatar-blush-3d blush-right-3d"></div>
+                            </div>
+                            <div class="avatar-body-3d"></div>
+                        </div>
+                        
+                        <!-- Mode Indicator -->
+                        <div style="position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.9); padding: 8px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; color: var(--primary-brand);">
+                            <i class="fas fa-palette"></i> 時尚模式
+                        </div>
+                        
+                        <!-- Floating Elements -->
+                        <div style="position: absolute; top: 20px; left: 20px; font-size: 1.5rem; animation: float 3s infinite ease-in-out;">✨</div>
+                        <div style="position: absolute; bottom: 30px; right: 30px; font-size: 1.3rem; animation: float 3s infinite ease-in-out; animation-delay: 1s;">💄</div>
+                        <div style="position: absolute; bottom: 80px; left: 25px; font-size: 1.4rem; animation: float 3s infinite ease-in-out; animation-delay: 2s;">👗</div>
+                    </div>
+                    
+                    <!-- Status & Controls -->
+                    <div style="background: var(--neutral-light); border-radius: 20px; padding: 20px; margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 15px;">
+                            <div style="width: 10px; height: 10px; background: var(--success-green); border-radius: 50%; animation: pulse 2s infinite;"></div>
+                            <span style="font-weight: 600;">Amber 在線中</span>
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--neutral-dark);">
+                            準備為你提供專業造型建議
+                        </div>
+                    </div>
+                    
+                    <!-- Mode Selector -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <button class="mode-btn active" data-mode="fashion" style="padding: 12px; border: 2px solid var(--primary-brand); background: var(--primary-brand); color: white; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <i class="fas fa-tshirt"></i><br>
+                            <span style="font-size: 0.8rem;">服裝</span>
+                        </button>
+                        <button class="mode-btn" data-mode="makeup" style="padding: 12px; border: 2px solid var(--primary-brand); background: transparent; color: var(--primary-brand); border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <i class="fas fa-palette"></i><br>
+                            <span style="font-size: 0.8rem;">美妝</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Chat Interface -->
+                <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 30px; padding: 0; box-shadow: var(--shadow-2xl); overflow: hidden; height: 600px; display: flex; flex-direction: column;">
+                    
+                    <!-- Chat Header -->
+                    <div style="background: var(--gradient-primary); color: white; padding: 20px; display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 50px; height: 50px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                            💬
+                        </div>
+                        <div>
+                            <h3 style="margin-bottom: 5px;">與 Amber 對話</h3>
+                            <p style="opacity: 0.9; font-size: 0.9rem;">專業造型諮詢 • 即時回應</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px;">
+                        <!-- Welcome Message -->
+                        <div style="display: flex; gap: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+                                🎨
+                            </div>
+                            <div>
+                                <div style="background: var(--neutral-light); padding: 15px; border-radius: 20px 20px 20px 5px; margin-bottom: 5px;">
+                                    嗨！我是 Amber，你的專屬造型師！✨<br>
+                                    今天想要什麼風格的建議呢？你可以：<br><br>
+                                    📸 上傳你的照片<br>
+                                    💬 描述你的需求<br>
+                                    🎯 告訴我場合和喜好
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7;">
+                                    剛剛
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Example User Message -->
+                        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                            <div style="max-width: 70%;">
+                                <div style="background: var(--gradient-primary); color: white; padding: 15px; border-radius: 20px 20px 5px 20px; margin-bottom: 5px;">
+                                    我想要一套適合約會的穿搭，偏向可愛甜美風格
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; text-align: right;">
+                                    2 分鐘前
+                                </div>
+                            </div>
+                            <div style="width: 40px; height: 40px; background: var(--secondary-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+                                👤
+                            </div>
+                        </div>
+                        
+                        <!-- Amber Response with Recommendations -->
+                        <div style="display: flex; gap: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+                                💕
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="background: var(--neutral-light); padding: 15px; border-radius: 20px 20px 20px 5px; margin-bottom: 15px;">
+                                    完美的選擇！甜美約會風格我最拿手了！💖<br>
+                                    根據你的需求，我推薦以下搭配：
+                                </div>
+                                
+                                <!-- Recommendation Cards -->
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px;">
+                                    <div style="background: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: var(--shadow-sm); transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                        <div style="font-size: 2rem; margin-bottom: 8px;">👗</div>
+                                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--primary-brand);">碎花洋裝</div>
+                                        <div style="font-size: 0.8rem; color: var(--neutral-dark);">$1,299</div>
+                                    </div>
+                                    <div style="background: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: var(--shadow-sm); transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                        <div style="font-size: 2rem; margin-bottom: 8px;">👠</div>
+                                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--primary-brand);">小白鞋</div>
+                                        <div style="font-size: 0.8rem; color: var(--neutral-dark);">$899</div>
+                                    </div>
+                                    <div style="background: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: var(--shadow-sm); transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                        <div style="font-size: 2rem; margin-bottom: 8px;">👜</div>
+                                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--primary-brand);">小方包</div>
+                                        <div style="font-size: 0.8rem; color: var(--neutral-dark);">$659</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: rgba(255, 107, 157, 0.1); padding: 12px; border-radius: 15px; border-left: 4px solid var(--primary-brand);">
+                                    <strong>💡 Amber 小貼士：</strong><br>
+                                    碎花裙配小白鞋是經典甜美組合，再加一個精緻小方包就完美了！記得選擇淡粉色或米白色系，會讓整體更有親和力哦～
+                                </div>
+                                
+                                <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; margin-top: 10px;">
+                                    1 分鐘前
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div style="padding: 20px; border-top: 1px solid var(--neutral-medium); background: var(--neutral-light);">
+                        <div style="display: flex; gap: 12px; align-items: end;">
+                            <div style="flex: 1;">
+                                <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                                    <button style="background: var(--primary-light); color: var(--primary-deep); border: none; padding: 8px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer;">
+                                        📸 上傳照片
+                                    </button>
+                                    <button style="background: var(--secondary-blue); color: white; border: none; padding: 8px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer;">
+                                        🎤 語音輸入
+                                    </button>
+                                </div>
+                                <textarea id="messageInput" placeholder="輸入你的問題或需求..." style="width: 100%; padding: 15px; border: 2px solid var(--neutral-medium); border-radius: 20px; resize: none; font-family: inherit; font-size: 1rem; outline: none; transition: border-color 0.3s ease;" rows="2" onfocus="this.style.borderColor='var(--primary-brand)'" onblur="this.style.borderColor='var(--neutral-medium)'"></textarea>
+                            </div>
+                            <button id="sendBtn" style="background: var(--gradient-primary); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Quick Suggestions -->
+                        <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+                            <button class="quick-suggestion" data-text="幫我搭配上班穿搭">👔 上班穿搭</button>
+                            <button class="quick-suggestion" data-text="推薦約會妝容">💄 約會妝容</button>
+                            <button class="quick-suggestion" data-text="春天有什麼流行色彩">🌸 春季流行</button>
+                            <button class="quick-suggestion" data-text="怎麼搭配小黑裙">🖤 小黑裙搭配</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">BE 76</div>
+                    <p>重新定義 AI 社交體驗，讓每個人都擁有最懂自己的數位夥伴。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>功能</h4>
+                    <ul>
+                        <li><a href="assistant.html">個人助理</a></li>
+                        <li><a href="social-rooms.html">AI 社交</a></li>
+                        <li><a href="profile.html">個人檔案</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>平台</h4>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="#">安全政策</a></li>
+                        <li><a href="#">隱私條款</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <ul>
+                        <li><a href="mailto:support@be76.com">support@be76.com</a></li>
+                        <li><a href="#">加入 Discord</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BE 76. 專為 25-35 歲都市女性打造的 AI 社交平台</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        // Assistant Page Specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mode switching
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.mode-btn').forEach(b => {
+                        b.classList.remove('active');
+                        b.style.background = 'transparent';
+                        b.style.color = 'var(--primary-brand)';
+                    });
+                    
+                    this.classList.add('active');
+                    this.style.background = 'var(--primary-brand)';
+                    this.style.color = 'white';
+                    
+                    const mode = this.getAttribute('data-mode');
+                    switchAssistantMode(mode);
+                });
+            });
+            
+            // Quick suggestions
+            document.querySelectorAll('.quick-suggestion').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const text = this.getAttribute('data-text');
+                    document.getElementById('messageInput').value = text;
+                    sendMessage();
+                });
+            });
+            
+            // Send message
+            document.getElementById('sendBtn').addEventListener('click', sendMessage);
+            document.getElementById('messageInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        });
+        
+        function switchAssistantMode(mode) {
+            const avatar = document.getElementById('assistantAvatar');
+            const modeIndicator = avatar.parentElement.querySelector('[style*="Mode Indicator"]');
+            
+            if (mode === 'fashion') {
+                // Switch to fashion mode
+                console.log('Switched to Fashion Mode');
+                // Add any specific fashion mode styling
+            } else if (mode === 'makeup') {
+                // Switch to makeup mode
+                console.log('Switched to Makeup Mode');
+                // Add any specific makeup mode styling
+            }
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessageToChat(message, 'user');
+            
+            // Clear input
+            input.value = '';
+            
+            // Simulate Amber's response
+            setTimeout(() => {
+                const responses = [
+                    "這是個很棒的想法！讓我為你分析一下...",
+                    "我明白你的需求，這裡有幾個建議：",
+                    "根據你的風格偏好，我推薦...",
+                    "這個搭配會很適合你！讓我詳細說明..."
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessageToChat(randomResponse, 'amber');
+            }, 1000);
+        }
+        
+        function addMessageToChat(message, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                        <div style="max-width: 70%;">
+                            <div style="background: var(--gradient-primary); color: white; padding: 15px; border-radius: 20px 20px 5px 20px; margin-bottom: 5px;">
+                                ${message}
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; text-align: right;">
+                                剛剛
+                            </div>
+                        </div>
+                        <div style="width: 40px; height: 40px; background: var(--secondary-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+                            👤
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div style="display: flex; gap: 12px;">
+                        <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+                            💝
+                        </div>
+                        <div>
+                            <div style="background: var(--neutral-light); padding: 15px; border-radius: 20px 20px 20px 5px; margin-bottom: 5px;">
+                                ${message}
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7;">
+                                剛剛
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+    
+    <style>
+        .quick-suggestion {
+            background: rgba(255, 107, 157, 0.1);
+            color: var(--primary-brand);
+            border: 1px solid rgba(255, 107, 157, 0.3);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-suggestion:hover {
+            background: var(--primary-brand);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @media (max-width: 768px) {
+            section > .container > div {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            
+            .avatar-3d {
+                transform: scale(1) !important;
+            }
+        }
+    </style>
+</body>
+</html>

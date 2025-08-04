@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE 76 - AI 社交房間 | Habbo 風格互動</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">BE 76</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="assistant.html" class="nav-link">個人助理</a>
+                    <a href="social-rooms.html" class="nav-link">AI 社交</a>
+                    <a href="habbo-rooms.html" class="nav-link active">Habbo 房間</a>
+                    <a href="profile.html" class="nav-link">個人檔案</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="joinRandomRoom()">
+                        <i class="fas fa-random"></i> 隨機加入
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Room Selection -->
+    <section style="padding: 40px 0; background: var(--neutral-light);">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="font-size: 2rem; color: var(--neutral-black);">
+                    <i class="fas fa-door-open" style="color: var(--primary-brand); margin-right: 12px;"></i>
+                    AI 社交房間
+                </h2>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <select id="roomSelector" class="room-selector">
+                        <option value="fashion">🎀 時尚穿搭房</option>
+                        <option value="beauty">💄 美妝保養房</option>
+                        <option value="travel">✈️ 旅行探索房</option>
+                        <option value="music">🎵 音樂聊天房</option>
+                    </select>
+                    <button class="btn btn-secondary" onclick="createRoom()">
+                        <i class="fas fa-plus"></i> 創建房間
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Room Stats -->
+            <div class="room-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="onlineUsers">24</span>
+                    <span class="stat-label">在線用戶</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="activeRooms">6</span>
+                    <span class="stat-label">活躍房間</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="aiChats">156</span>
+                    <span class="stat-label">AI 對話中</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Game Area -->
+    <section style="padding: 0; background: #2c3e50;">
+        <div style="position: relative; width: 100%; height: 70vh; overflow: hidden;">
+            <!-- Phaser Game Container -->
+            <div id="game-container" style="width: 100%; height: 100%;"></div>
+            
+            <!-- Room Info Overlay -->
+            <div class="room-info-overlay">
+                <div class="current-room-info">
+                    <div class="room-title">
+                        <span class="room-emoji">🎀</span>
+                        <span class="room-name">時尚穿搭房</span>
+                        <span class="room-users">👥 12 人</span>
+                    </div>
+                    <div class="room-description">
+                        與 Amber 和其他 AI 助理一起討論時尚穿搭，分享搭配靈感！
+                    </div>
+                </div>
+                
+                <!-- Mini Map -->
+                <div class="mini-map">
+                    <div class="mini-map-title">房間地圖</div>
+                    <div class="mini-map-content">
+                        <div class="mini-room active" data-room="fashion">
+                            <span>🎀</span>
+                        </div>
+                        <div class="mini-room" data-room="beauty">
+                            <span>💄</span>
+                        </div>
+                        <div class="mini-room" data-room="travel">
+                            <span>✈️</span>
+                        </div>
+                        <div class="mini-room" data-room="music">
+                            <span>🎵</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Panel -->
+            <div class="chat-panel" id="chatPanel">
+                <div class="chat-header">
+                    <span><i class="fas fa-comments"></i> 房間聊天</span>
+                    <button class="chat-toggle" onclick="toggleChat()">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-message ai-message">
+                        <div class="message-avatar">
+                            <div class="mini-avatar amber"></div>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Amber</span>
+                                <span class="message-time">14:23</span>
+                            </div>
+                            <div class="message-text">歡迎來到時尚穿搭房！今天想聊什麼穿搭主題呢？</div>
+                        </div>
+                    </div>
+                    <div class="chat-message user-message">
+                        <div class="message-avatar">
+                            <div class="mini-avatar user"></div>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Bella</span>
+                                <span class="message-time">14:25</span>
+                            </div>
+                            <div class="message-text">想學習春季的穿搭配色！</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="輸入訊息..." onkeypress="handleChatInput(event)">
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Info Modal -->
+    <div class="character-modal" id="characterModal">
+        <div class="character-modal-content">
+            <div class="character-modal-header">
+                <h3 id="characterName">Amber</h3>
+                <button class="close-btn" onclick="closeCharacterModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="character-modal-body">
+                <div class="character-avatar-large">
+                    <div class="avatar-3d interactive-element">
+                        <div class="avatar-head-3d">
+                            <div class="avatar-hair-3d"></div>
+                            <div class="avatar-eyes-3d">
+                                <div class="eye-3d">
+                                    <div class="iris-3d">
+                                        <div class="pupil-3d">
+                                            <div class="highlight-3d"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="eye-3d">
+                                    <div class="iris-3d">
+                                        <div class="pupil-3d">
+                                            <div class="highlight-3d"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="avatar-nose-3d"></div>
+                            <div class="avatar-mouth-3d"></div>
+                            <div class="avatar-blush-3d blush-left-3d"></div>
+                            <div class="avatar-blush-3d blush-right-3d"></div>
+                        </div>
+                        <div class="avatar-body-3d"></div>
+                    </div>
+                </div>
+                <div class="character-info">
+                    <div class="character-stats">
+                        <div class="stat">
+                            <span class="stat-label">專長</span>
+                            <span class="stat-value" id="characterSkill">時尚穿搭</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">個性</span>
+                            <span class="stat-value" id="characterPersonality">溫柔友善</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">經驗值</span>
+                            <span class="stat-value" id="characterExp">2,560</span>
+                        </div>
+                    </div>
+                    <div class="character-description" id="characterDescription">
+                        我是 Amber，你的專屬時尚顧問！擅長搭配建議和風格分析，讓我幫你找到最適合的穿搭風格吧！
+                    </div>
+                    <div class="character-actions">
+                        <button class="btn btn-primary" onclick="startPrivateChat()">
+                            <i class="fas fa-comment"></i> 私人對話
+                        </button>
+                        <button class="btn btn-secondary" onclick="viewMemory()">
+                            <i class="fas fa-brain"></i> 查看記憶
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Styles for Habbo Room -->
+    <style>
+        .room-selector {
+            padding: 8px 16px;
+            border: 2px solid var(--primary-brand);
+            border-radius: var(--radius-lg);
+            background: var(--neutral-white);
+            color: var(--neutral-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .room-selector:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .room-stats {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--neutral-white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            min-width: 120px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-brand);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--neutral-dark);
+        }
+
+        .room-info-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .current-room-info {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            pointer-events: auto;
+        }
+
+        .room-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .room-emoji {
+            font-size: 1.5rem;
+        }
+
+        .room-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neutral-black);
+        }
+
+        .room-users {
+            background: var(--primary-light);
+            color: var(--primary-deep);
+            padding: 4px 8px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .room-description {
+            color: var(--neutral-dark);
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+
+        .mini-map {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            pointer-events: auto;
+        }
+
+        .mini-map-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--neutral-dark);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .mini-map-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .mini-room {
+            width: 40px;
+            height: 40px;
+            background: var(--neutral-light);
+            border: 2px solid var(--neutral-medium);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mini-room.active {
+            background: var(--primary-brand);
+            border-color: var(--primary-deep);
+            transform: scale(1.1);
+        }
+
+        .mini-room span {
+            font-size: 1.2rem;
+            filter: grayscale(100%);
+        }
+
+        .mini-room.active span {
+            filter: grayscale(0%);
+        }
+
+        .chat-panel {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            width: 350px;
+            max-height: 400px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            box-shadow: var(--shadow-2xl);
+            border: 2px solid var(--neutral-medium);
+            transition: all 0.3s ease;
+        }
+
+        .chat-header {
+            padding: 16px 20px;
+            border-bottom: 2px solid var(--neutral-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--gradient-primary);
+            color: var(--neutral-white);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            font-weight: 600;
+        }
+
+        .chat-toggle {
+            background: none;
+            border: none;
+            color: var(--neutral-white);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .chat-messages {
+            height: 250px;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            animation: messageSlideIn 0.3s ease;
+        }
+
+        @keyframes messageSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-avatar {
+            flex-shrink: 0;
+        }
+
+        .mini-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--neutral-white);
+        }
+
+        .mini-avatar.amber {
+            background: var(--gradient-primary);
+        }
+
+        .mini-avatar.user {
+            background: var(--gradient-secondary);
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .message-name {
+            font-weight: 600;
+            color: var(--neutral-black);
+            font-size: 0.9rem;
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            color: var(--neutral-dark);
+        }
+
+        .message-text {
+            background: var(--neutral-light);
+            padding: 8px 12px;
+            border-radius: var(--radius-lg);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message .message-text {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-left: 3px solid var(--primary-brand);
+        }
+
+        .chat-input-area {
+            padding: 16px;
+            border-top: 2px solid var(--neutral-light);
+            display: flex;
+            gap: 8px;
+        }
+
+        #chatInput {
+            flex: 1;
+            padding: 10px 16px;
+            border: 2px solid var(--neutral-medium);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #chatInput:focus {
+            border-color: var(--primary-brand);
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: var(--neutral-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Character Modal */
+        .character-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .character-modal-content {
+            background: var(--neutral-white);
+            border-radius: var(--radius-2xl);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-2xl);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .character-modal-header {
+            padding: 24px 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #characterName {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neutral-black);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--neutral-dark);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--neutral-light);
+            color: var(--neutral-black);
+        }
+
+        .character-modal-body {
+            padding: 24px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .character-avatar-large {
+            flex-shrink: 0;
+        }
+
+        .character-info {
+            flex: 1;
+        }
+
+        .character-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--neutral-light);
+            border-radius: var(--radius-md);
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: var(--neutral-dark);
+        }
+
+        .stat-value {
+            color: var(--primary-brand);
+            font-weight: 600;
+        }
+
+        .character-description {
+            line-height: 1.6;
+            color: var(--neutral-dark);
+            margin-bottom: 24px;
+            padding: 16px;
+            background: var(--neutral-light);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-brand);
+        }
+
+        .character-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .room-info-overlay {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .current-room-info, .mini-map {
+                align-self: flex-start;
+            }
+
+            .chat-panel {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+
+            .character-modal-body {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .room-stats {
+                flex-direction: column;
+                gap: 16px;
+                align-items: center;
+            }
+        }
+    </style>
+
+    <!-- Game Script -->
+    <script src="assets/js/habbo-game.js"></script>
+    
+    <script>
+        // Chat functionality
+        function toggleChat() {
+            const chatPanel = document.getElementById('chatPanel');
+            const toggle = document.querySelector('.chat-toggle i');
+            
+            if (chatPanel.style.transform === 'translateY(calc(100% - 60px))') {
+                chatPanel.style.transform = 'translateY(0)';
+                toggle.style.transform = 'rotate(0deg)';
+            } else {
+                chatPanel.style.transform = 'translateY(calc(100% - 60px))';
+                toggle.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function handleChatInput(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addChatMessage('user', 'You', message);
+                input.value = '';
+                
+                // Simulate AI response
+                setTimeout(() => {
+                    const responses = [
+                        "這個想法很棒！我覺得可以這樣搭配...",
+                        "我來推薦一些適合的選擇給你！",
+                        "根據你的風格，我建議...",
+                        "讓我分析一下最適合的配色方案！"
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addChatMessage('ai', 'Amber', randomResponse);
+                }, 1500);
+            }
+        }
+
+        function addChatMessage(type, name, text) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}-message`;
+            
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ':' + 
+                        now.getMinutes().toString().padStart(2, '0');
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <div class="mini-avatar ${type === 'ai' ? 'amber' : 'user'}"></div>
+                </div>
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="message-name">${name}</span>
+                        <span class="message-time">${time}</span>
+                    </div>
+                    <div class="message-text">${text}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Character modal functions
+        function showCharacterModal(characterData) {
+            const modal = document.getElementById('characterModal');
+            document.getElementById('characterName').textContent = characterData.name;
+            document.getElementById('characterSkill').textContent = characterData.skill;
+            document.getElementById('characterPersonality').textContent = characterData.personality;
+            document.getElementById('characterExp').textContent = characterData.exp;
+            document.getElementById('characterDescription').textContent = characterData.description;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeCharacterModal() {
+            document.getElementById('characterModal').style.display = 'none';
+        }
+
+        function startPrivateChat() {
+            closeCharacterModal();
+            addChatMessage('ai', 'Amber', '嗨！很高興能和你私下聊天！有什麼想討論的嗎？');
+        }
+
+        function viewMemory() {
+            addChatMessage('ai', 'Amber', '我記得你喜歡簡約風格的穿搭，上次還聊過春季的配色方案呢！');
+            closeCharacterModal();
+        }
+
+        // Room management
+        function joinRandomRoom() {
+            const rooms = ['fashion', 'beauty', 'travel', 'music'];
+            const randomRoom = rooms[Math.floor(Math.random() * rooms.length)];
+            switchRoom(randomRoom);
+        }
+
+        function createRoom() {
+            alert('房間創建功能開發中，請稍後再試！');
+        }
+
+        function switchRoom(roomType) {
+            // Update room info
+            const roomData = {
+                fashion: { name: '時尚穿搭房', emoji: '🎀', users: 12, desc: '與 Amber 和其他 AI 助理一起討論時尚穿搭，分享搭配靈感！' },
+                beauty: { name: '美妝保養房', emoji: '💄', users: 8, desc: '美妝技巧分享，保養心得交流，讓你變得更美麗！' },
+                travel: { name: '旅行探索房', emoji: '✈️', users: 15, desc: '分享旅行經驗，探索世界各地的美景和文化！' },
+                music: { name: '音樂聊天房', emoji: '🎵', users: 6, desc: '音樂愛好者的聚集地，分享好聽的歌曲和音樂心得！' }
+            };
+
+            const room = roomData[roomType];
+            if (room) {
+                document.querySelector('.room-emoji').textContent = room.emoji;
+                document.querySelector('.room-name').textContent = room.name;
+                document.querySelector('.room-users').textContent = `👥 ${room.users} 人`;
+                document.querySelector('.room-description').textContent = room.desc;
+                
+                // Update mini map
+                document.querySelectorAll('.mini-room').forEach(r => r.classList.remove('active'));
+                document.querySelector(`[data-room="${roomType}"]`).classList.add('active');
+                
+                // Update room selector
+                document.getElementById('roomSelector').value = roomType;
+                
+                // Add welcome message
+                addChatMessage('ai', 'Amber', `歡迎來到${room.name}！${room.desc}`);
+            }
+        }
+
+        // Initialize room selector
+        document.getElementById('roomSelector').addEventListener('change', function() {
+            switchRoom(this.value);
+        });
+
+        // Mini map room switching
+        document.querySelectorAll('.mini-room').forEach(room => {
+            room.addEventListener('click', function() {
+                const roomType = this.getAttribute('data-room');
+                switchRoom(roomType);
+            });
+        });
+
+        // Initialize with random stats
+        function updateStats() {
+            document.getElementById('onlineUsers').textContent = Math.floor(Math.random() * 50) + 20;
+            document.getElementById('activeRooms').textContent = Math.floor(Math.random() * 8) + 4;
+            document.getElementById('aiChats').textContent = Math.floor(Math.random() * 300) + 100;
+        }
+
+        // Update stats every 30 seconds
+        setInterval(updateStats, 30000);
+        
+        // Click outside modal to close
+        document.getElementById('characterModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCharacterModal();
+            }
+        });
+    </script>
+</body>
+</html>

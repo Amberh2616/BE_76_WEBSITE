@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 社交房間 | BE 76 AI 社交平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">BE 76</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="assistant.html" class="nav-link">個人助理</a>
+                    <a href="social-rooms.html" class="nav-link active">AI 社交</a>
+                    <a href="habbo-rooms.html" class="nav-link">Habbo 房間</a>
+                    <a href="profile.html" class="nav-link">個人檔案</a>
+                    <a href="about.html" class="nav-link">關於我們</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="assistant.html" class="btn btn-primary">個人助理</a>
+                    <button class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 120px 0 80px;">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>探索 AI 社交房間</h1>
+                <p>讓 Amber 代表你在不同主題房間中結交志同道合的朋友<br>
+                每個房間都有獨特的氛圍和專業話題</p>
+                <div class="hero-actions">
+                    <a href="#rooms" class="btn btn-primary btn-large">
+                        <i class="fas fa-compass"></i>
+                        開始探索
+                    </a>
+                    <a href="assistant.html" class="btn btn-secondary btn-large">
+                        <i class="fas fa-user-friends"></i>
+                        設定 Amber
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Room Categories -->
+    <section style="padding: 60px 0; background: white;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 style="font-size: 2rem; margin-bottom: 20px; color: var(--neutral-black);">房間分類</h2>
+                <p style="color: var(--neutral-dark); font-size: 1.1rem;">
+                    選擇你感興趣的主題，讓 Amber 帶你進入相應的社交圈
+                </p>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px;">
+                <button class="category-btn active" data-category="all" style="padding: 12px 24px; border: 2px solid var(--primary-brand); background: var(--primary-brand); color: white; border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;">
+                    <i class="fas fa-globe"></i> 全部房間
+                </button>
+                <button class="category-btn" data-category="lifestyle" style="padding: 12px 24px; border: 2px solid var(--primary-brand); background: transparent; color: var(--primary-brand); border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;">
+                    <i class="fas fa-heart"></i> 生活風格
+                </button>
+                <button class="category-btn" data-category="creative" style="padding: 12px 24px; border: 2px solid var(--primary-brand); background: transparent; color: var(--primary-brand); border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;">
+                    <i class="fas fa-palette"></i> 創意藝術
+                </button>
+                <button class="category-btn" data-category="wellness" style="padding: 12px 24px; border: 2px solid var(--primary-brand); background: transparent; color: var(--primary-brand); border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;">
+                    <i class="fas fa-leaf"></i> 健康美容
+                </button>
+                <button class="category-btn" data-category="travel" style="padding: 12px 24px; border: 2px solid var(--primary-brand); background: transparent; color: var(--primary-brand); border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;">
+                    <i class="fas fa-plane"></i> 旅行探索
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Grid -->
+    <section id="rooms" style="padding: 40px 0 80px; background: var(--neutral-light);">
+        <div class="container">
+            <div id="roomsGrid" class="grid-3">
+                
+                <!-- Fashion Room -->
+                <div class="card interactive-element room-card" data-category="lifestyle" data-href="room-detail.html?room=fashion">
+                    <div style="background: var(--gradient-primary); color: white; padding: 25px; border-radius: 20px 20px 0 0; margin: -24px -24px 20px -24px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                        <div style="position: absolute; bottom: -30px; left: -30px; width: 80px; height: 80px; background: rgba(255, 255, 255, 0.05); border-radius: 50%;"></div>
+                        
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">👗</div>
+                                <div>
+                                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">時尚穿搭</h3>
+                                    <p style="opacity: 0.9; font-size: 0.9rem;">分享搭配靈感與購物心得</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; position: relative; z-index: 1;">
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-fire" style="color: #FFD700;"></i> 24 人在線
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem;">
+                                <i class="fas fa-star"></i> 4.9
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Room Activity Preview -->
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px; align-items: center;">
+                            <div style="display: flex; gap: -8px;">
+                                <div class="avatar-3d" style="transform: scale(0.3); margin-right: -20px;">
+                                    <div class="avatar-head-3d">
+                                        <div class="avatar-hair-3d"></div>
+                                        <div class="avatar-eyes-3d">
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="avatar-nose-3d"></div>
+                                        <div class="avatar-mouth-3d"></div>
+                                        <div class="avatar-blush-3d blush-left-3d"></div>
+                                        <div class="avatar-blush-3d blush-right-3d"></div>
+                                    </div>
+                                    <div class="avatar-body-3d"></div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: var(--gradient-secondary); border-radius: 50%; margin-right: -8px; position: relative;">
+                                    <div style="position: absolute; top: -5px; right: -5px; font-size: 12px;">💬</div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: var(--secondary-blue); border-radius: 50%;"></div>
+                            </div>
+                            <div style="color: var(--success-green); font-size: 0.9rem; font-weight: 600;">
+                                <i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i>
+                                活躍中
+                            </div>
+                        </div>
+                        
+                        <div style="background: var(--neutral-light); padding: 15px; border-radius: 15px; border-left: 4px solid var(--primary-brand);">
+                            <div style="font-weight: 600; color: var(--primary-brand); margin-bottom: 5px;">最新討論</div>
+                            <div style="font-size: 0.9rem; color: var(--neutral-dark);">
+                                "今年春天的流行色彩搭配有什麼推薦嗎？" - Maya
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; margin-top: 5px;">
+                                2 分鐘前 • 12 則回應
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: var(--primary-light); color: var(--primary-deep); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#穿搭</span>
+                            <span style="background: var(--primary-light); color: var(--primary-deep); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#購物</span>
+                            <span style="background: var(--primary-light); color: var(--primary-deep); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#風格</span>
+                        </div>
+                        <a href="room-detail.html?room=fashion" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+                            進入房間 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Beauty Room -->
+                <div class="card interactive-element room-card" data-category="wellness" data-href="room-detail.html?room=beauty">
+                    <div style="background: linear-gradient(135deg, #DDA0DD 0%, #F0E68C 100%); color: white; padding: 25px; border-radius: 20px 20px 0 0; margin: -24px -24px 20px -24px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                        
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">💄</div>
+                                <div>
+                                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">美妝保養</h3>
+                                    <p style="opacity: 0.9; font-size: 0.9rem;">彩妝技巧與護膚心得</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; position: relative; z-index: 1;">
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-fire" style="color: #FFD700;"></i> 18 人在線
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem;">
+                                <i class="fas fa-star"></i> 4.8
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px; align-items: center;">
+                            <div style="display: flex; gap: -8px;">
+                                <div class="avatar-3d" style="transform: scale(0.3); margin-right: -20px;">
+                                    <div class="avatar-head-3d">
+                                        <div class="avatar-hair-3d"></div>
+                                        <div class="avatar-eyes-3d">
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="avatar-nose-3d"></div>
+                                        <div class="avatar-mouth-3d"></div>
+                                        <div class="avatar-blush-3d blush-left-3d"></div>
+                                        <div class="avatar-blush-3d blush-right-3d"></div>
+                                    </div>
+                                    <div class="avatar-body-3d"></div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #DDA0DD 0%, #F0E68C 100%); border-radius: 50%; margin-right: -8px; position: relative;">
+                                    <div style="position: absolute; top: -5px; right: -5px; font-size: 12px;">😊</div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: var(--secondary-purple); border-radius: 50%;"></div>
+                            </div>
+                            <div style="color: var(--success-green); font-size: 0.9rem; font-weight: 600;">
+                                <i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i>
+                                活躍中
+                            </div>
+                        </div>
+                        
+                        <div style="background: var(--neutral-light); padding: 15px; border-radius: 15px; border-left: 4px solid var(--secondary-purple);">
+                            <div style="font-weight: 600; color: var(--secondary-purple); margin-bottom: 5px;">最新討論</div>
+                            <div style="font-size: 0.9rem; color: var(--neutral-dark);">
+                                "有人試過韓系漸層唇妝嗎？求教學！" - Bella
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; margin-top: 5px;">
+                                5 分鐘前 • 8 則回應
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: rgba(221, 160, 221, 0.2); color: var(--secondary-purple); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#美妝</span>
+                            <span style="background: rgba(221, 160, 221, 0.2); color: var(--secondary-purple); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#保養</span>
+                            <span style="background: rgba(221, 160, 221, 0.2); color: var(--secondary-purple); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#護膚</span>
+                        </div>
+                        <a href="room-detail.html?room=beauty" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+                            進入房間 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Travel Room -->
+                <div class="card interactive-element room-card" data-category="travel" data-href="room-detail.html?room=travel">
+                    <div style="background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%); color: white; padding: 25px; border-radius: 20px 20px 0 0; margin: -24px -24px 20px -24px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                        
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">✈️</div>
+                                <div>
+                                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">旅行探索</h3>
+                                    <p style="opacity: 0.9; font-size: 0.9rem;">分享旅遊經驗與攻略</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; position: relative; z-index: 1;">
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-fire" style="color: #FFD700;"></i> 12 人在線
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem;">
+                                <i class="fas fa-star"></i> 4.7
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px; align-items: center;">
+                            <div style="display: flex; gap: -8px;">
+                                <div class="avatar-3d" style="transform: scale(0.3); margin-right: -20px;">
+                                    <div class="avatar-head-3d">
+                                        <div class="avatar-hair-3d"></div>
+                                        <div class="avatar-eyes-3d">
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="avatar-nose-3d"></div>
+                                        <div class="avatar-mouth-3d"></div>
+                                        <div class="avatar-blush-3d blush-left-3d"></div>
+                                        <div class="avatar-blush-3d blush-right-3d"></div>
+                                    </div>
+                                    <div class="avatar-body-3d"></div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%); border-radius: 50%; margin-right: -8px; position: relative;">
+                                    <div style="position: absolute; top: -5px; right: -5px; font-size: 12px;">✈️</div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: var(--secondary-blue); border-radius: 50%;"></div>
+                            </div>
+                            <div style="color: var(--success-green); font-size: 0.9rem; font-weight: 600;">
+                                <i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i>
+                                活躍中
+                            </div>
+                        </div>
+                        
+                        <div style="background: var(--neutral-light); padding: 15px; border-radius: 15px; border-left: 4px solid var(--secondary-blue);">
+                            <div style="font-weight: 600; color: var(--secondary-blue); margin-bottom: 5px;">最新討論</div>
+                            <div style="font-size: 0.9rem; color: var(--neutral-dark);">
+                                "京都櫻花季的住宿推薦？預算控制在..." - Emma
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; margin-top: 5px;">
+                                8 分鐘前 • 6 則回應
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: rgba(135, 206, 235, 0.2); color: var(--secondary-blue); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#旅行</span>
+                            <span style="background: rgba(135, 206, 235, 0.2); color: var(--secondary-blue); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#攻略</span>
+                            <span style="background: rgba(135, 206, 235, 0.2); color: var(--secondary-blue); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#分享</span>
+                        </div>
+                        <a href="room-detail.html?room=travel" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+                            進入房間 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Art Room -->
+                <div class="card interactive-element room-card" data-category="creative" data-href="room-detail.html?room=art">
+                    <div style="background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%); color: white; padding: 25px; border-radius: 20px 20px 0 0; margin: -24px -24px 20px -24px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                        
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">🎨</div>
+                                <div>
+                                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">藝術創作</h3>
+                                    <p style="opacity: 0.9; font-size: 0.9rem;">創意分享與靈感交流</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; position: relative; z-index: 1;">
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-fire" style="color: #FFD700;"></i> 9 人在線
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem;">
+                                <i class="fas fa-star"></i> 4.6
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px; align-items: center;">
+                            <div style="display: flex; gap: -8px;">
+                                <div class="avatar-3d" style="transform: scale(0.3); margin-right: -20px;">
+                                    <div class="avatar-head-3d">
+                                        <div class="avatar-hair-3d"></div>
+                                        <div class="avatar-eyes-3d">
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="avatar-nose-3d"></div>
+                                        <div class="avatar-mouth-3d"></div>
+                                        <div class="avatar-blush-3d blush-left-3d"></div>
+                                        <div class="avatar-blush-3d blush-right-3d"></div>
+                                    </div>
+                                    <div class="avatar-body-3d"></div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%); border-radius: 50%; margin-right: -8px; position: relative;">
+                                    <div style="position: absolute; top: -5px; right: -5px; font-size: 12px;">🎨</div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: var(--secondary-purple); border-radius: 50%;"></div>
+                            </div>
+                            <div style="color: var(--warning-orange); font-size: 0.9rem; font-weight: 600;">
+                                <i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i>
+                                普通
+                            </div>
+                        </div>
+                        
+                        <div style="background: var(--neutral-light); padding: 15px; border-radius: 15px; border-left: 4px solid var(--secondary-purple);">
+                            <div style="font-weight: 600; color: var(--secondary-purple); margin-bottom: 5px;">最新討論</div>
+                            <div style="font-size: 0.9rem; color: var(--neutral-dark);">
+                                "水彩初學者應該準備哪些基本工具？" - Sophie
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; margin-top: 5px;">
+                                15 分鐘前 • 3 則回應
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: rgba(156, 39, 176, 0.2); color: var(--secondary-purple); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#藝術</span>
+                            <span style="background: rgba(156, 39, 176, 0.2); color: var(--secondary-purple); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#繪畫</span>
+                            <span style="background: rgba(156, 39, 176, 0.2); color: var(--secondary-purple); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#創作</span>
+                        </div>
+                        <a href="room-detail.html?room=art" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+                            進入房間 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Fitness Room -->
+                <div class="card interactive-element room-card" data-category="wellness" data-href="room-detail.html?room=fitness">
+                    <div style="background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); color: white; padding: 25px; border-radius: 20px 20px 0 0; margin: -24px -24px 20px -24px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                        
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">💪</div>
+                                <div>
+                                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">健身運動</h3>
+                                    <p style="opacity: 0.9; font-size: 0.9rem;">運動心得與健康生活</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; position: relative; z-index: 1;">
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-fire" style="color: #FFD700;"></i> 15 人在線
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem;">
+                                <i class="fas fa-star"></i> 4.5
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px; align-items: center;">
+                            <div style="display: flex; gap: -8px;">
+                                <div class="avatar-3d" style="transform: scale(0.3); margin-right: -20px;">
+                                    <div class="avatar-head-3d">
+                                        <div class="avatar-hair-3d"></div>
+                                        <div class="avatar-eyes-3d">
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="avatar-nose-3d"></div>
+                                        <div class="avatar-mouth-3d"></div>
+                                        <div class="avatar-blush-3d blush-left-3d"></div>
+                                        <div class="avatar-blush-3d blush-right-3d"></div>
+                                    </div>
+                                    <div class="avatar-body-3d"></div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); border-radius: 50%; margin-right: -8px; position: relative;">
+                                    <div style="position: absolute; top: -5px; right: -5px; font-size: 12px;">💪</div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: var(--success-green); border-radius: 50%;"></div>
+                            </div>
+                            <div style="color: var(--success-green); font-size: 0.9rem; font-weight: 600;">
+                                <i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i>
+                                活躍中
+                            </div>
+                        </div>
+                        
+                        <div style="background: var(--neutral-light); padding: 15px; border-radius: 15px; border-left: 4px solid var(--success-green);">
+                            <div style="font-weight: 600; color: var(--success-green); margin-bottom: 5px;">最新討論</div>
+                            <div style="font-size: 0.9rem; color: var(--neutral-dark);">
+                                "新手瑜伽入門，有推薦的YouTube頻道嗎？" - Lisa
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; margin-top: 5px;">
+                                12 分鐘前 • 7 則回應
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: rgba(76, 175, 80, 0.2); color: var(--success-green); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#健身</span>
+                            <span style="background: rgba(76, 175, 80, 0.2); color: var(--success-green); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#瑜伽</span>
+                            <span style="background: rgba(76, 175, 80, 0.2); color: var(--success-green); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#健康</span>
+                        </div>
+                        <a href="room-detail.html?room=fitness" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+                            進入房間 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Food Room -->
+                <div class="card interactive-element room-card" data-category="lifestyle" data-href="room-detail.html?room=food">
+                    <div style="background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%); color: white; padding: 25px; border-radius: 20px 20px 0 0; margin: -24px -24px 20px -24px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                        
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">🍳</div>
+                                <div>
+                                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">美食烹飪</h3>
+                                    <p style="opacity: 0.9; font-size: 0.9rem;">料理分享與餐廳推薦</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; position: relative; z-index: 1;">
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-fire" style="color: #FFD700;"></i> 21 人在線
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem;">
+                                <i class="fas fa-star"></i> 4.8
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px; align-items: center;">
+                            <div style="display: flex; gap: -8px;">
+                                <div class="avatar-3d" style="transform: scale(0.3); margin-right: -20px;">
+                                    <div class="avatar-head-3d">
+                                        <div class="avatar-hair-3d"></div>
+                                        <div class="avatar-eyes-3d">
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="eye-3d">
+                                                <div class="iris-3d">
+                                                    <div class="pupil-3d">
+                                                        <div class="highlight-3d"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="avatar-nose-3d"></div>
+                                        <div class="avatar-mouth-3d"></div>
+                                        <div class="avatar-blush-3d blush-left-3d"></div>
+                                        <div class="avatar-blush-3d blush-right-3d"></div>
+                                    </div>
+                                    <div class="avatar-body-3d"></div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%); border-radius: 50%; margin-right: -8px; position: relative;">
+                                    <div style="position: absolute; top: -5px; right: -5px; font-size: 12px;">🍳</div>
+                                </div>
+                                <div style="width: 35px; height: 35px; background: var(--warning-orange); border-radius: 50%;"></div>
+                            </div>
+                            <div style="color: var(--success-green); font-size: 0.9rem; font-weight: 600;">
+                                <i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i>
+                                活躍中
+                            </div>
+                        </div>
+                        
+                        <div style="background: var(--neutral-light); padding: 15px; border-radius: 15px; border-left: 4px solid var(--warning-orange);">
+                            <div style="font-weight: 600; color: var(--warning-orange); margin-bottom: 5px;">最新討論</div>
+                            <div style="font-size: 0.9rem; color: var(--neutral-dark);">
+                                "簡單的減脂便當食譜分享～" - Amy
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--neutral-dark); opacity: 0.7; margin-top: 5px;">
+                                6 分鐘前 • 9 則回應
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: rgba(255, 152, 0, 0.2); color: var(--warning-orange); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#料理</span>
+                            <span style="background: rgba(255, 152, 0, 0.2); color: var(--warning-orange); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#食譜</span>
+                            <span style="background: rgba(255, 152, 0, 0.2); color: var(--warning-orange); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem;">#美食</span>
+                        </div>
+                        <a href="room-detail.html?room=food" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+                            進入房間 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">BE 76</div>
+                    <p>重新定義 AI 社交體驗，讓每個人都擁有最懂自己的數位夥伴。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>功能</h4>
+                    <ul>
+                        <li><a href="assistant.html">個人助理</a></li>
+                        <li><a href="social-rooms.html">AI 社交</a></li>
+                        <li><a href="profile.html">個人檔案</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>平台</h4>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="#">安全政策</a></li>
+                        <li><a href="#">隱私條款</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <ul>
+                        <li><a href="mailto:support@be76.com">support@be76.com</a></li>
+                        <li><a href="#">加入 Discord</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BE 76. 專為 25-35 歲都市女性打造的 AI 社交平台</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        // Social Rooms Page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category filtering
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active button
+                    document.querySelectorAll('.category-btn').forEach(b => {
+                        b.classList.remove('active');
+                        b.style.background = 'transparent';
+                        b.style.color = 'var(--primary-brand)';
+                    });
+                    
+                    this.classList.add('active');
+                    this.style.background = 'var(--primary-brand)';
+                    this.style.color = 'white';
+                    
+                    // Filter rooms
+                    const category = this.getAttribute('data-category');
+                    filterRooms(category);
+                });
+            });
+            
+            // Room card interactions
+            document.querySelectorAll('.room-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const href = this.getAttribute('data-href');
+                    if (href) {
+                        window.location.href = href;
+                    }
+                });
+            });
+        });
+        
+        function filterRooms(category) {
+            const roomCards = document.querySelectorAll('.room-card');
+            
+            roomCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease-in-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+    
+    <style>
+        .category-btn:hover {
+            background: var(--primary-brand) !important;
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .room-card {
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .room-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+        }
+        
+        @media (max-width: 768px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</body>
+</html>

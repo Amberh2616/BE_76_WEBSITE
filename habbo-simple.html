@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE 76 - Habbo 風格房間 (簡化版)</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">BE 76</a>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">首頁</a>
+                    <a href="assistant.html" class="nav-link">個人助理</a>
+                    <a href="social-rooms.html" class="nav-link">AI 社交</a>
+                    <a href="habbo-simple.html" class="nav-link active">Habbo 房間</a>
+                    <a href="profile.html" class="nav-link">個人檔案</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="switchRoom('beauty')">
+                        <i class="fas fa-random"></i> 切換房間
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Room Display -->
+    <section style="padding: 40px 0; background: var(--neutral-light);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 30px;">
+                <span id="currentRoomEmoji">🎀</span>
+                <span id="currentRoomName">時尚穿搭房</span>
+                <span style="background: var(--primary-light); color: var(--primary-deep); padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; margin-left: 16px;">
+                    👥 <span id="roomUsers">12</span> 人在線
+                </span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- Habbo Style Room -->
+    <section style="padding: 0; background: #2c3e50; min-height: 70vh; position: relative;">
+        <div class="habbo-room-container">
+            <!-- Isometric Room -->
+            <div class="iso-room" id="currentRoom">
+                <!-- Floor Tiles -->
+                <div class="floor-grid">
+                    <!-- 動態生成地板磚 -->
+                </div>
+                
+                <!-- Furniture -->
+                <div class="furniture-container">
+                    <div class="furniture sofa" style="left: 300px; top: 250px;" onclick="clickFurniture('sofa')">
+                        <div class="furniture-sprite sofa-sprite">🛋️</div>
+                        <div class="furniture-shadow"></div>
+                    </div>
+                    
+                    <div class="furniture table" style="left: 500px; top: 300px;" onclick="clickFurniture('table')">
+                        <div class="furniture-sprite table-sprite">🪑</div>
+                        <div class="furniture-shadow"></div>
+                    </div>
+                    
+                    <div class="furniture plant" style="left: 650px; top: 200px;" onclick="clickFurniture('plant')">
+                        <div class="furniture-sprite plant-sprite">🪴</div>
+                        <div class="furniture-shadow"></div>
+                    </div>
+                </div>
+
+                <!-- Characters -->
+                <div class="characters-container">
+                    <!-- Amber -->
+                    <div class="character" id="amber" style="left: 350px; top: 300px;" onclick="showCharacterInfo('amber')">
+                        <div class="character-sprite amber-sprite">
+                            <div class="char-head"></div>
+                            <div class="char-body"></div>
+                        </div>
+                        <div class="character-name">Amber</div>
+                        <div class="character-shadow"></div>
+                        <div class="speech-bubble" id="amber-speech"></div>
+                    </div>
+
+                    <!-- Bella -->
+                    <div class="character" id="bella" style="left: 450px; top: 280px;" onclick="showCharacterInfo('bella')">
+                        <div class="character-sprite bella-sprite">
+                            <div class="char-head"></div>
+                            <div class="char-body"></div>
+                        </div>
+                        <div class="character-name">Bella</div>
+                        <div class="character-shadow"></div>
+                        <div class="speech-bubble" id="bella-speech"></div>
+                    </div>
+
+                    <!-- Emma -->
+                    <div class="character" id="emma" style="left: 550px; top: 320px;" onclick="showCharacterInfo('emma')">
+                        <div class="character-sprite emma-sprite">
+                            <div class="char-head"></div>
+                            <div class="char-body"></div>
+                        </div>
+                        <div class="character-name">Emma</div>
+                        <div class="character-shadow"></div>
+                        <div class="speech-bubble" id="emma-speech"></div>
+                    </div>
+
+                    <!-- Luna -->
+                    <div class="character" id="luna" style="left: 400px; top: 250px;" onclick="showCharacterInfo('luna')">
+                        <div class="character-sprite luna-sprite">
+                            <div class="char-head"></div>
+                            <div class="char-body"></div>
+                        </div>
+                        <div class="character-name">Luna</div>
+                        <div class="character-shadow"></div>
+                        <div class="speech-bubble" id="luna-speech"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Room Controls -->
+            <div class="room-controls">
+                <div class="room-tabs">
+                    <button class="room-tab active" data-room="fashion" onclick="switchRoom('fashion')">
+                        🎀 時尚
+                    </button>
+                    <button class="room-tab" data-room="beauty" onclick="switchRoom('beauty')">
+                        💄 美妝
+                    </button>
+                    <button class="room-tab" data-room="travel" onclick="switchRoom('travel')">
+                        ✈️ 旅行
+                    </button>
+                    <button class="room-tab" data-room="music" onclick="switchRoom('music')">
+                        🎵 音樂
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Panel -->
+            <div class="chat-panel-simple">
+                <div class="chat-header">
+                    <i class="fas fa-comments"></i> 房間聊天
+                    <button onclick="toggleChatPanel()">
+                        <i class="fas fa-chevron-up" id="chat-toggle-icon"></i>
+                    </button>
+                </div>
+                <div class="chat-content" id="chatContent">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message ai">
+                            <strong>Amber:</strong> 歡迎來到時尚穿搭房！有什麼想聊的嗎？
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="輸入訊息..." onkeypress="handleEnter(event)">
+                        <button onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Info Modal -->
+    <div class="character-info-modal" id="characterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalCharacterName">Amber</h3>
+                <button onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="character-avatar" id="modalAvatar">
+                    <!-- 顯示角色頭像 -->
+                </div>
+                <div class="character-details">
+                    <p><strong>專長:</strong> <span id="modalSkill">時尚穿搭</span></p>
+                    <p><strong>個性:</strong> <span id="modalPersonality">溫柔友善</span></p>
+                    <p><strong>經驗值:</strong> <span id="modalExp">2560</span></p>
+                    <p id="modalDescription">我是 Amber，你的專屬時尚顧問！</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" onclick="startChat()">開始對話</button>
+                    <button class="btn btn-secondary" onclick="closeModal()">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Habbo Room Styles */
+        .habbo-room-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            overflow: hidden;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+        }
+
+        .iso-room {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        /* Floor */
+        .floor-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.1) 0px,
+                    rgba(255, 255, 255, 0.1) 2px,
+                    transparent 2px,
+                    transparent 30px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(255, 255, 255, 0.05) 0px,
+                    rgba(255, 255, 255, 0.05) 2px,
+                    transparent 2px,
+                    transparent 30px
+                );
+            background-color: #3498db;
+            opacity: 0.3;
+        }
+
+        /* Furniture */
+        .furniture {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .furniture:hover {
+            transform: scale(1.1);
+        }
+
+        .furniture-sprite {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: furnitureBob 3s ease-in-out infinite;
+        }
+
+        .furniture-shadow {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            filter: blur(3px);
+        }
+
+        @keyframes furnitureBob {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Characters */
+        .character {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            z-index: 20;
+            animation: characterMove 8s ease-in-out infinite;
+        }
+
+        .character:hover {
+            transform: scale(1.2);
+        }
+
+        .character-sprite {
+            position: relative;
+            width: 40px;
+            height: 60px;
+            margin: 0 auto;
+        }
+
+        .char-head {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 auto 5px;
+            position: relative;
+        }
+
+        .char-body {
+            width: 25px;
+            height: 35px;
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Different character colors */
+        .amber-sprite .char-head { background: #ffeaa7; }
+        .amber-sprite .char-body { background: #fd79a8; }
+
+        .bella-sprite .char-head { background: #ffeaa7; }
+        .bella-sprite .char-body { background: #74b9ff; }
+
+        .emma-sprite .char-head { background: #ffeaa7; }
+        .emma-sprite .char-body { background: #a29bfe; }
+
+        .luna-sprite .char-head { background: #ffeaa7; }
+        .luna-sprite .char-body { background: #e84393; }
+
+        .character-name {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-top: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .character-shadow {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 10px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .speech-bubble {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+            max-width: 120px;
+            text-align: center;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: white;
+        }
+
+        .speech-bubble.show {
+            opacity: 1;
+        }
+
+        @keyframes characterMove {
+            0%, 100% { transform: translateX(0px); }
+            25% { transform: translateX(20px); }
+            50% { transform: translateX(0px); }
+            75% { transform: translateX(-15px); }
+        }
+
+        /* Room Controls */
+        .room-controls {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+        }
+
+        .room-tabs {
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.95);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .room-tab {
+            background: transparent;
+            border: 2px solid var(--primary-brand);
+            color: var(--primary-brand);
+            padding: 8px 16px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .room-tab.active, .room-tab:hover {
+            background: var(--primary-brand);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Chat Panel */
+        .chat-panel-simple {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            width: 300px;
+            background: rgba(255,255,255,0.98);
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .chat-header button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .chat-content {
+            max-height: 250px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .chat-messages {
+            padding: 16px;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: var(--neutral-light);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .chat-message.ai {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-left: 3px solid var(--primary-brand);
+        }
+
+        .chat-input {
+            padding: 12px 16px;
+            border-top: 1px solid var(--neutral-medium);
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid var(--neutral-medium);
+            border-radius: 20px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary-brand);
+        }
+
+        .chat-input button {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .character-info-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .modal-header button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-header button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .modal-body {
+            padding: 24px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .character-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .character-details {
+            flex: 1;
+        }
+
+        .character-details p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .room-tabs {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            
+            .room-tab {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .chat-panel-simple {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+            
+            .modal-body {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <script>
+        // Room data
+        const roomData = {
+            fashion: {
+                name: '時尚穿搭房',
+                emoji: '🎀',
+                users: 12,
+                bgColor: '#e74c3c',
+                characters: ['amber', 'bella']
+            },
+            beauty: {
+                name: '美妝保養房',
+                emoji: '💄',
+                users: 8,
+                bgColor: '#9b59b6',
+                characters: ['bella', 'luna']
+            },
+            travel: {
+                name: '旅行探索房',
+                emoji: '✈️',
+                users: 15,
+                bgColor: '#3498db',
+                characters: ['emma', 'amber']
+            },
+            music: {
+                name: '音樂聊天房',
+                emoji: '🎵',
+                users: 6,
+                bgColor: '#1abc9c',
+                characters: ['luna', 'emma']
+            }
+        };
+
+        const characterData = {
+            amber: { name: 'Amber', skill: '時尚穿搭', personality: '溫柔友善', exp: 2560, emoji: '👗' },
+            bella: { name: 'Bella', skill: '美妝保養', personality: '活潑開朗', exp: 1890, emoji: '💄' },
+            emma: { name: 'Emma', skill: '旅行規劃', personality: '冒險精神', exp: 3200, emoji: '✈️' },
+            luna: { name: 'Luna', skill: '音樂品味', personality: '藝術氣息', exp: 2100, emoji: '🎵' }
+        };
+
+        let currentRoom = 'fashion';
+        let chatOpen = true;
+
+        // Switch rooms
+        function switchRoom(roomType) {
+            if (!roomData[roomType]) return;
+            
+            currentRoom = roomType;
+            const room = roomData[roomType];
+            
+            // Update UI
+            document.getElementById('currentRoomEmoji').textContent = room.emoji;
+            document.getElementById('currentRoomName').textContent = room.name;
+            document.getElementById('roomUsers').textContent = room.users;
+            
+            // Update room background
+            document.querySelector('.floor-grid').style.backgroundColor = room.bgColor;
+            
+            // Update active tab
+            document.querySelectorAll('.room-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-room="${roomType}"]`).classList.add('active');
+            
+            // Add chat message
+            addChatMessage(`歡迎來到${room.name}！`, 'ai');
+            
+            // Show speech bubbles
+            showRandomSpeech();
+        }
+
+        // Character interactions
+        function showCharacterInfo(characterId) {
+            const char = characterData[characterId];
+            if (!char) return;
+            
+            document.getElementById('modalCharacterName').textContent = char.name;
+            document.getElementById('modalSkill').textContent = char.skill;
+            document.getElementById('modalPersonality').textContent = char.personality;
+            document.getElementById('modalExp').textContent = char.exp;
+            document.getElementById('modalDescription').textContent = 
+                `我是 ${char.name}，專精於${char.skill}的 AI 助理！讓我來幫助你吧！`;
+            document.getElementById('modalAvatar').textContent = char.emoji;
+            
+            document.getElementById('characterModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('characterModal').style.display = 'none';
+        }
+
+        function startChat() {
+            const char = document.getElementById('modalCharacterName').textContent;
+            addChatMessage(`${char}: 嗨！很高興和你聊天！有什麼想討論的嗎？`, 'ai');
+            closeModal();
+        }
+
+        // Furniture interactions
+        function clickFurniture(furnitureType) {
+            const messages = {
+                sofa: '這張沙發看起來很舒適呢！',
+                table: '桌上放著一些時尚雜誌',
+                plant: '這盆植物為房間增添了生機'
+            };
+            addChatMessage(`Amber: ${messages[furnitureType]}`, 'ai');
+        }
+
+        // Chat functions
+        function toggleChatPanel() {
+            const content = document.getElementById('chatContent');
+            const icon = document.getElementById('chat-toggle-icon');
+            
+            if (chatOpen) {
+                content.style.maxHeight = '0';
+                icon.className = 'fas fa-chevron-down';
+            } else {
+                content.style.maxHeight = '250px';
+                icon.className = 'fas fa-chevron-up';
+            }
+            chatOpen = !chatOpen;
+        }
+
+        function addChatMessage(message, type = 'user') {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}`;
+            messageDiv.innerHTML = `<strong>${type === 'ai' ? message.split(':')[0] : 'You'}:</strong> ${type === 'ai' ? message.split(':').slice(1).join(':') : message}`;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addChatMessage(message, 'user');
+                input.value = '';
+                
+                // AI response
+                setTimeout(() => {
+                    const responses = [
+                        'Amber: 這個想法很棒！我覺得可以這樣搭配...',
+                        'Bella: 我來推薦一些適合的選擇給你！',
+                        'Emma: 根據你的風格，我建議...',
+                        'Luna: 讓我分析一下最適合的配色方案！'
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addChatMessage(randomResponse, 'ai');
+                }, 1500);
+            }
+        }
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Speech bubbles
+        function showRandomSpeech() {
+            const characters = document.querySelectorAll('.character');
+            characters.forEach(char => {
+                const bubble = char.querySelector('.speech-bubble');
+                const greetings = [
+                    '嗨！很高興見到你！',
+                    '今天過得如何呢？',
+                    '有什麼想聊的嗎？',
+                    '需要我的幫助嗎？'
+                ];
+                
+                setTimeout(() => {
+                    bubble.textContent = greetings[Math.floor(Math.random() * greetings.length)];
+                    bubble.classList.add('show');
+                    
+                    setTimeout(() => {
+                        bubble.classList.remove('show');
+                    }, 3000);
+                }, Math.random() * 5000);
+            });
+        }
+
+        // Character hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const characters = document.querySelectorAll('.character');
+            characters.forEach(char => {
+                char.addEventListener('mouseenter', function() {
+                    const bubble = this.querySelector('.speech-bubble');
+                    const greetings = ['嗨！', '哈囉！', '你好！', '歡迎！'];
+                    bubble.textContent = greetings[Math.floor(Math.random() * greetings.length)];
+                    bubble.classList.add('show');
+                });
+                
+                char.addEventListener('mouseleave', function() {
+                    const bubble = this.querySelector('.speech-bubble');
+                    bubble.classList.remove('show');
+                });
+            });
+            
+            // Auto show speech bubbles
+            setInterval(showRandomSpeech, 10000);
+            
+            // Initial speech
+            setTimeout(showRandomSpeech, 2000);
+        });
+
+        // Click outside modal to close
+        document.getElementById('characterModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

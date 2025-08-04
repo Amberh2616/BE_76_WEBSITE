@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE 76 網站功能測試</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .test-link {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            background: #6366F1;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .test-link:hover {
+            background: #4F46E5;
+        }
+        
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .status.ok {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 BE 76 網站功能測試</h1>
+    
+    <div class="test-section">
+        <h2>📄 頁面連結測試</h2>
+        <p>測試所有主要頁面是否正常載入：</p>
+        
+        <a href="index.html" class="test-link" target="_blank">首頁</a>
+        <a href="assistant.html" class="test-link" target="_blank">個人助理</a>
+        <a href="social-rooms.html" class="test-link" target="_blank">AI 社交</a>
+        <a href="profile.html" class="test-link" target="_blank">個人檔案</a>
+        <a href="about.html" class="test-link" target="_blank">關於我們</a>
+        <a href="room-detail.html?room=fashion" class="test-link" target="_blank">房間詳情</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎨 CSS 樣式測試</h2>
+        <p>檢查 CSS 檔案是否正確載入：</p>
+        
+        <div id="cssTest">
+            <div class="status" id="cssStatus">檢查中...</div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>⚡ JavaScript 功能測試</h2>
+        <p>檢查 JavaScript 檔案是否正確載入：</p>
+        
+        <div id="jsTest">
+            <div class="status" id="jsStatus">檢查中...</div>
+        </div>
+        
+        <button onclick="testAvatarFunction()" style="margin-top: 10px; padding: 10px 20px; background: #06B6D4; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            測試 Avatar 功能
+        </button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔍 3D Avatar 測試</h2>
+        <p>測試 3D Avatar 是否正確顯示和互動：</p>
+        
+        <div style="display: flex; justify-content: center; margin: 20px 0;">
+            <div class="avatar-3d" id="testAvatar">
+                <div class="avatar-head-3d">
+                    <div class="avatar-hair-3d"></div>
+                    <div class="avatar-eyes-3d">
+                        <div class="eye-3d">
+                            <div class="iris-3d">
+                                <div class="pupil-3d">
+                                    <div class="highlight-3d"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="eye-3d">
+                            <div class="iris-3d">
+                                <div class="pupil-3d">
+                                    <div class="highlight-3d"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="avatar-nose-3d"></div>
+                    <div class="avatar-mouth-3d"></div>
+                    <div class="avatar-blush-3d blush-left-3d"></div>
+                    <div class="avatar-blush-3d blush-right-3d"></div>
+                </div>
+                <div class="avatar-body-3d"></div>
+            </div>
+        </div>
+        
+        <p style="text-align: center; color: #666; font-style: italic;">
+            點擊 Amber 試試看！移動滑鼠觀察眼球追蹤效果。
+        </p>
+    </div>
+    
+    <div class="test-section">
+        <h2>📱 響應式設計測試</h2>
+        <p>調整瀏覽器視窗大小測試響應式設計。</p>
+        
+        <div id="viewportInfo" style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px;">
+            <div>視窗寬度: <span id="viewportWidth">-</span>px</div>
+            <div>視窗高度: <span id="viewportHeight">-</span>px</div>
+            <div>設備類型: <span id="deviceType">-</span></div>
+        </div>
+    </div>
+    
+    <!-- 載入BE76的樣式和腳本 -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        // 測試腳本
+        document.addEventListener('DOMContentLoaded', function() {
+            // CSS 測試
+            setTimeout(() => {
+                const cssStatus = document.getElementById('cssStatus');
+                const testElement = document.createElement('div');
+                testElement.className = 'avatar-3d';
+                document.body.appendChild(testElement);
+                
+                const styles = getComputedStyle(testElement);
+                if (styles.width === '120px') {
+                    cssStatus.textContent = '✅ CSS 樣式載入成功';
+                    cssStatus.className = 'status ok';
+                } else {
+                    cssStatus.textContent = '❌ CSS 樣式載入失敗';
+                    cssStatus.className = 'status error';
+                }
+                
+                document.body.removeChild(testElement);
+            }, 100);
+            
+            // JavaScript 測試
+            setTimeout(() => {
+                const jsStatus = document.getElementById('jsStatus');
+                if (typeof window.BE76 !== 'undefined') {
+                    jsStatus.textContent = '✅ JavaScript 功能載入成功';
+                    jsStatus.className = 'status ok';
+                } else {
+                    jsStatus.textContent = '❌ JavaScript 功能載入失敗';
+                    jsStatus.className = 'status error';
+                }
+            }, 200);
+            
+            // 更新視窗資訊
+            updateViewportInfo();
+            window.addEventListener('resize', updateViewportInfo);
+        });
+        
+        function testAvatarFunction() {
+            const avatar = document.getElementById('testAvatar');
+            if (typeof window.BE76 !== 'undefined' && window.BE76.handleAvatarClick) {
+                window.BE76.handleAvatarClick({ currentTarget: avatar });
+                alert('Avatar 功能測試成功！');
+            } else {
+                alert('Avatar 功能測試失敗！');
+            }
+        }
+        
+        function updateViewportInfo() {
+            document.getElementById('viewportWidth').textContent = window.innerWidth;
+            document.getElementById('viewportHeight').textContent = window.innerHeight;
+            
+            const deviceType = window.innerWidth < 768 ? '手機' : 
+                             window.innerWidth < 1024 ? '平板' : '桌面';
+            document.getElementById('deviceType').textContent = deviceType;
+        }
+    </script>
+</body>
+</html>
